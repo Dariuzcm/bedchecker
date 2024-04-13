@@ -5,7 +5,6 @@ export interface UserDataStore {
 }
 
 export interface UserActionStore {
-  login: (email:string, pass: string) => Promise<void>
 }
 
 export type UserStoreType = UserDataStore & UserActionStore

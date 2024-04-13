@@ -13,6 +13,4 @@ const initialState: UserDataStore = {
 // eslint-disable-next-line @typescript-eslint/no-unused-vars
 export const userStore: StateCreator<UserDataStore & UserActionStore> = (_set, _get) => ({
   user: initialState.user!,
-  // eslint-disable-next-line @typescript-eslint/no-unused-vars
-  login: async (_email: string, _pass: string) => {}
 })
