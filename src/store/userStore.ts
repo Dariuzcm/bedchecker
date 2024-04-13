@@ -1,16 +1,29 @@
 import { StateCreator } from "zustand";
 import { UserActionStore, UserDataStore } from "../types/userStore.type";
+import { User } from "../types/userTypes";
 
 const initialState: UserDataStore = {
   user: {
-    id: 1,
-    name: "jose",
-    photo: "/jose.png",
-    email: "email@a.com"
+    id: 0,
+    name: "",
+    photo: "",
+    email: "",
   },
-}
+};
 
-// eslint-disable-next-line @typescript-eslint/no-unused-vars
-export const userStore: StateCreator<UserDataStore & UserActionStore> = (_set, _get) => ({
+export const userStore: StateCreator<UserDataStore & UserActionStore> = (
+  set,
+  // eslint-disable-next-line @typescript-eslint/no-unused-vars
+  _get
+) => ({
   user: initialState.user!,
-})
+
+  //-------Actions---------
+  setUser: (partialUser: Partial<User>) =>
+    set(({ user }) => ({
+      user: {
+        ...user,
+        ...partialUser,
+      },
+    })),
+});

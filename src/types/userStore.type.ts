@@ -5,6 +5,7 @@ export interface UserDataStore {
 }
 
 export interface UserActionStore {
+  setUser: (user: Partial<User>) => void
 }
 
 export type UserStoreType = UserDataStore & UserActionStore
