@@ -1,9 +1,19 @@
+import { useEffect } from "react";
 import { useStore } from "../store/store";
-import { UserStoreType } from "../types/userStore.type";
+import { useNavigate } from "react-router-dom";
+
 
 export function HomePage() {
 
-  const { user } = useStore((state: UserStoreType) => state)
+  const { user } = useStore(({ user }) => ({ user }))
+  const navigation = useNavigate()
+
+  useEffect(() => {
+    console.log(!user.token)
+    if(!user.token) {
+      navigation('/login')
+    }
+  }, [])  
   return (<>
     HOME PAGE
     <section>

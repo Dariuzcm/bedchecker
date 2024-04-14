@@ -16,7 +16,7 @@ export function Login() {
     email: "",
     password: "",
   });
-  const { setUser } = useStore((state) => state);
+  const { setUser } = useStore((state) => ({setUser: state.setUser}));
 
   const [loading, setLoading] = useState(false);
 

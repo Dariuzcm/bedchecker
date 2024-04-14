@@ -11,7 +11,7 @@ import { useState } from "react";
 
 export function Navigation() {
   const [isMenuOpen, setIsMenuOpen] = useState(false);
-
+  
   const menuItems = [
     { name: "Perfil", url: "" },
     { name: "Inicio", url: "" },
@@ -43,6 +43,7 @@ export function Navigation() {
             </NavbarMenuItem>
           ))}
         </NavbarMenu>
+        
       </Navbar>
     </>
   );
