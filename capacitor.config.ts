@@ -5,7 +5,15 @@ const config: CapacitorConfig = {
   appName: 'bedchecker',
   webDir: 'dist',
   server: {
-    androidScheme: 'https'
+    androidScheme: 'http',
+    allowNavigation: [
+      'http://localhost:3333',
+    ]
+  },
+  plugins: {
+    CapacitorHttp: {
+      enabled: true
+    }
   }
 };
 

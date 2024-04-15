@@ -7,9 +7,13 @@ import {
   Input,
   Button,
 } from "@nextui-org/react";
-import { ChangeEvent, useState } from "react";
-import { loginAction } from "../api/apiHandler";
+import { ChangeEvent, MouseEvent, useState, useRef } from "react";
+import { 
+  capacitorLoginAction, 
+  //loginAction
+} from "../api/apiHandler";
 import { useStore } from "../store/store";
+import { useNavigate } from "react-router-dom";
 
 export function Login() {
   const [formValues, setFormValues] = useState({
@@ -17,19 +21,33 @@ export function Login() {
     password: "",
   });
   const { setUser } = useStore((state) => ({setUser: state.setUser}));
-
+  
+  const [Error, setError] = useState<string>('');
   const [loading, setLoading] = useState(false);
 
-  const handleOnSubmit = async () => {
-    loginAction(formValues.email, formValues.password, setLoading).then(
+  const navigation = useNavigate()
+  const handleOnSubmit = async (e: MouseEvent<HTMLButtonElement>) => {
+
+    capacitorLoginAction(formValues.email, formValues.password, setLoading).then(
       (data) => {
         setUser({
           ...data.user,
           token: data.token,
         });
+        navigation('/home')
       }
-    );
+    ).catch( error => {
+      setError(error.message)
+      if(divRef.current) {
+        divRef.current.innerHTML = error + `<p>${JSON.stringify(error)}</p>`
+      }
+    })
+    
+    
+    e.preventDefault()
   };
+
+  const divRef = useRef<HTMLDivElement>(null)
 
   const handleOnChange = (e: ChangeEvent<HTMLInputElement>) => {
     const { name, value } = e.target;
@@ -93,6 +111,10 @@ export function Login() {
           </div>
         </CardFooter>
       </Card>
+      {Error && <div 
+        className="w-auto border-solid border-red-400 bg-red-300 border-small rounded-sm m-3 p-3" 
+        ref={divRef} 
+      />}
     </section>
   );
 }

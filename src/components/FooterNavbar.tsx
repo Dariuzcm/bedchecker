@@ -4,6 +4,7 @@ import NotebookIcon from "../icons/NotebookIcon";
 import { NavBarItemFooter, NavBarItemFooterType } from "./NavBarItemFooter";
 import { useNavigate } from "react-router-dom";
 import { useStore } from "../store/store";
+import { BedIcon } from "../icons/BedIcon";
 
 export function FooterNavBar() {
   const { user } = useStore(({ user }) => ({ user }));
@@ -14,13 +15,9 @@ export function FooterNavBar() {
     if (!user.token) {
       navigation("/login");
     }
+  // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [user]);
 
-  useEffect(() => {
-    if (!user.token) {
-      navigation("/home");
-    }
-  }, []);
 
   const footBarItems: NavBarItemFooterType[] = [
     {
@@ -33,19 +30,21 @@ export function FooterNavBar() {
       tooltip: "Mis viajes",
       children: <NotebookIcon className="size-9" />,
     },
+    {
+      url: "/bedCapture",
+      tooltip: "BedCapture",
+      children: <BedIcon className="size-9" />,
+    },
   ];
   return (
     <>
       <div className="w-full bg-white bottom-4 left-0 right-0 h-10 fixed">
-        <ul className="flex justify-between p-3 items-center">
+        <ul className="flex justify-between p-3 items-center mx-5">
           {footBarItems.map((item, index) => (
             <li className="h-full" key={`footbar-${index}`}>
               <NavBarItemFooter {...item} />{" "}
             </li>
           ))}
-          <li>user Reg</li>
-          <li>libreta</li>
-          <li>logout</li>
         </ul>
       </div>
     </>
