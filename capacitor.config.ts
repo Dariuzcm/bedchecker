@@ -8,6 +8,7 @@ const config: CapacitorConfig = {
     androidScheme: 'http',
     allowNavigation: [
       'http://localhost:3333',
+      'https://d1d9tq69-3333.usw3.devtunnels.ms/'
     ]
   },
   plugins: {

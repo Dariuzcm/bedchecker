@@ -1,7 +1,8 @@
-import { CapacitorHttp, HttpResponse } from "@capacitor/core";
+import { CapacitorHttp, HttpOptions, HttpResponse } from "@capacitor/core";
 import requestHandler from "./requestHandler";
 
-const baseURL = (import.meta.env.VITE_API_BASEURL || 'http://localhost:3333/' )+'api/v1/';
+const baseURL =
+  (import.meta.env.VITE_API_BASEURL || "https://d1d9tq69-3333.usw3.devtunnels.ms/") + "api/v1/";
 
 export const loginAction = async (
   email: string,
@@ -24,6 +25,7 @@ export const loginAction = async (
     .finally(() => {
       isLoading && isLoading(false);
     });
+  console.log(data)
   return {
     user: data.user,
     token: data.token.token,
@@ -36,14 +38,20 @@ export const capacitorLoginAction = async (
   isLoading?: React.Dispatch<React.SetStateAction<boolean>>
 ) => {
   isLoading && isLoading(true);
-  const options = {
-    url: baseURL,
+  const options: HttpOptions = {
+    url: baseURL + "users/login",
+    headers: {
+      "Content-Type": "application/json",
+    },
     data: {
       email,
-      password
-    }
-  }
-  const response: HttpResponse = await CapacitorHttp.post(options)
-  return response.data
+      password,
+    },
+  };
+  const { data }: HttpResponse["data"] = await CapacitorHttp.post(options)
+    .finally(() => {
+      isLoading && isLoading(false);
+    });
+  return data;
 };
 export const logout = async () => {};
