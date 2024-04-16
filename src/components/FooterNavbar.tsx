@@ -38,11 +38,11 @@ export function FooterNavBar() {
   ];
   return (
     <>
-      <div className="w-full bg-white bottom-4 left-0 right-0 h-10 fixed">
+      <div className="w-full bg-white bottom-5 left-0 right-0 h-10 fixed">
         <ul className="flex justify-between p-3 items-center mx-5">
           {footBarItems.map((item, index) => (
             <li className="h-full" key={`footbar-${index}`}>
-              <NavBarItemFooter {...item} />{" "}
+              <NavBarItemFooter isDisabled={!user.token} {...item} />{" "}
             </li>
           ))}
         </ul>

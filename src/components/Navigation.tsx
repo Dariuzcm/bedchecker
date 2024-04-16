@@ -33,13 +33,13 @@ export function Navigation() {
   }
   return (
     <>
-      <Navbar onMenuOpenChange={setIsMenuOpen}>
+      <Navbar onMenuOpenChange={setIsMenuOpen} className="transition-all ease-in">
         <NavbarContent>
           <NavbarMenuToggle
             aria-label={isMenuOpen ? "Close menu" : "Open menu"}
-            className="bg-white"
+            className={`bg-white ${!user.token && 'invisible'}`}
           />
-          <NavbarBrand>
+          <NavbarBrand className="justify-center transition-all ease-linear">
             <h1 className="font-bold text-inherit text-xl">BedChecker</h1>
           </NavbarBrand>
           <NavbarItem>
@@ -53,7 +53,7 @@ export function Navigation() {
               key={`${item}-${index}`}
               className="hover:bg-cyan-700/60 transition-colors py-2"
             >
-              <Link color={"foreground"} className="w-full" href={item.url} size="lg">
+              <Link isDisabled={!user.token} color={"foreground"} className="w-full" href={item.url} size="lg">
                 {item.name}
               </Link>
             </NavbarMenuItem>

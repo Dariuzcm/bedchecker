@@ -95,8 +95,8 @@ export function Login() {
           <div className="flex flex-col gap-4 w-full px-5">
             <Button
               className={`${
-                formValues.email.length === 0 ||
-                (formValues.password.length === 0 && "opacity-35")
+                (formValues.email.length === 0 ||
+                formValues.password.length === 0) && "opacity-35"
               }`}
               disabled={
                 formValues.email.length === 0 ||

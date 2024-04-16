@@ -6,7 +6,7 @@ function App() {
   return (
   <>
     <Navigation />
-    <main className="p-6 pb-8 bg-cyan-600 w-full h-[85vh] overflow-auto">
+    <main className="p-6 pb-8 w-full h-[85vh] overflow-auto">
       <ReactRouter />
     </main>
   </>
