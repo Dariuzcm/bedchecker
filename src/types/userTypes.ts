@@ -4,7 +4,16 @@ export interface User {
   photo: string
   email: string
   type?: 'user' | 'admin'
-  token?: string
+  token?: Token | null
   createdAt?: string
   updatedAt?: string
+}
+
+export type Token = {
+  type: string;
+  name: string;
+  token: string;
+  abilities: string[];
+  lastUsedAt?: Date;
+  expiresAt: Date;
 }

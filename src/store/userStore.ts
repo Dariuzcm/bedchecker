@@ -8,6 +8,7 @@ const initialState: UserDataStore = {
     name: "",
     photo: "",
     email: "",
+    token: null,
   },
 };
 
@@ -26,4 +27,5 @@ export const userStore: StateCreator<UserDataStore & UserActionStore> = (
         ...partialUser,
       },
     })),
+  restartUser: () => set({ user: initialState.user })
 });

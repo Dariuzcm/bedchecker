@@ -9,8 +9,8 @@ import {
 } from "@nextui-org/react";
 import { ChangeEvent, MouseEvent, useState, useRef } from "react";
 import { 
-  capacitorLoginAction, 
-  //loginAction
+  //capacitorLoginAction, 
+  loginAction,
 } from "../api/apiHandler";
 import { useStore } from "../store/store";
 import { useNavigate } from "react-router-dom";
@@ -28,7 +28,7 @@ export function Login() {
   const navigation = useNavigate()
   const handleOnSubmit = async (e: MouseEvent<HTMLButtonElement>) => {
 
-    capacitorLoginAction(formValues.email, formValues.password, setLoading).then(
+    loginAction(formValues.email, formValues.password, setLoading).then(
       (data) => {
         setUser({
           ...data.user,

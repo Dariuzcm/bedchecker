@@ -8,9 +8,21 @@ import {
 import { useStore } from "../store/store";
 import { SettingsIcon } from "../icons/SettingsIcon";
 import { Logout } from "../icons/Logout";
+import { logoutAction } from "../api/apiHandler";
 
 export function AvatarSettings() {
-  const user = useStore((state) => state.user);
+  const { user, restartUser } = useStore((state) => ({
+    user: state.user,
+    restartUser: state.restartUser
+  }));
+
+  const handleOnLogout = () => {
+    logoutAction(user.token!)
+      .then(() => {
+        restartUser()
+      })
+  }
+  
   return (
     <>
       <Dropdown>
@@ -33,7 +45,7 @@ export function AvatarSettings() {
               <span>Configuración</span>
             </div>
           </DropdownItem>
-          <DropdownItem key="delete" className="text-danger" color="danger">
+          <DropdownItem key="delete" className="text-danger" color="danger" onClick={handleOnLogout}>
             <div className="flex justify-center gap-3 px-7">
               <Logout className="size-6"/>
               <span>Logout</span>
