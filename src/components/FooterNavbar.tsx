@@ -2,7 +2,7 @@ import { useEffect } from "react";
 import { HomeIcon } from "../icons/HomeIcon";
 import NotebookIcon from "../icons/NotebookIcon";
 import { NavBarItemFooter, NavBarItemFooterType } from "./NavBarItemFooter";
-import { useNavigate } from "react-router-dom";
+import { useLocation, useNavigate } from "react-router-dom";
 import { useStore } from "../store/store";
 import { BedIcon } from "../icons/BedIcon";
 
@@ -10,9 +10,9 @@ export function FooterNavBar() {
   const { user } = useStore(({ user }) => ({ user }));
 
   const navigation = useNavigate();
-
+  const location = useLocation();
   useEffect(() => {
-    if (!user.token) {
+    if (!user.token && ['register'].includes(location.pathname)) {
       navigation("/login");
     }
   // eslint-disable-next-line react-hooks/exhaustive-deps
@@ -21,14 +21,14 @@ export function FooterNavBar() {
 
   const footBarItems: NavBarItemFooterType[] = [
     {
-      url: "/home",
-      tooltip: "Inicio",
-      children: <HomeIcon className="size-9" />,
-    },
-    {
       url: "/list",
       tooltip: "Mis viajes",
       children: <NotebookIcon className="size-9" />,
+    },
+    {
+      url: "/home",
+      tooltip: "Inicio",
+      children: <HomeIcon className="size-9" />,
     },
     {
       url: "/bedCapture",

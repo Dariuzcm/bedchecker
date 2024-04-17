@@ -4,6 +4,7 @@ import { NotFound } from "../pages/404";
 import { HomePage } from "../pages/HomePage";
 import { Journeys } from "../pages/Journeys";
 import { Login } from "../pages/Login";
+import { Register } from "../pages/Register";
 
 export const ReactRouter = () => (
   <BrowserRouter>
@@ -13,6 +14,7 @@ export const ReactRouter = () => (
       <Route path="/404" element={<NotFound />} />
       <Route path="/login" element={<Login />} />
       <Route path="/list" element={<Journeys />} />
+      <Route path="/register" element={<Register />} />
       <Route path="*" element={<NotFound />} />
     </Routes>
     <FooterNavBar />

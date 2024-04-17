@@ -23,7 +23,7 @@ export function NavBarItemFooter({
     <Tooltip content={tooltip}>
       <Link
         ref={linkRef}
-        className={`flex flex-col rounded-full p-2 transition-all ease-out duration-500 text-${location.pathname === url ? 'blue-500 scale-125': 'black'}`}
+        className={`flex flex-col rounded-full p-2 transition-all ease-out duration-500 text-${location.pathname === url ? 'primary scale-125': 'black'}`}
         isDisabled={isDisabled}
         href={url}
       >

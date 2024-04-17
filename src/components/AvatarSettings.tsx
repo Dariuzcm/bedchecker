@@ -47,8 +47,7 @@ export function AvatarSettings() {
             </DropdownItem>
             <DropdownItem
               key="delete"
-              className="text-danger"
-              color="danger"
+              className="text-crayola"
               onClick={handleOnLogout}
             >
               <div className="flex justify-center gap-3 px-7">

@@ -9,7 +9,6 @@ export function HomePage() {
   const navigation = useNavigate()
 
   useEffect(() => {
-    console.log(!user.token)
     if(!user.token) {
       navigation('/login')
     }

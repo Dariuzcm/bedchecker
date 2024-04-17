@@ -51,7 +51,7 @@ export function Navigation() {
           {menuItems.map((item, index) => (
             <NavbarMenuItem
               key={`${item}-${index}`}
-              className="hover:bg-cyan-700/60 transition-colors py-2"
+              className="hover:primary/60 transition-colors py-2"
             >
               <Link isDisabled={!user.token} color={"foreground"} className="w-full" href={item.url} size="lg">
                 {item.name}
@@ -59,7 +59,7 @@ export function Navigation() {
             </NavbarMenuItem>
           ))}
           <NavbarMenuItem>
-            <Button onClick={handleOnLogout} className="w-full p-3 bg-red-600 text-white text-lg font-semibold mt-10">Log out</Button>
+            <Button onClick={handleOnLogout} className="w-full p-3 bg-crayola text-white text-lg font-semibold mt-10">Log out</Button>
           </NavbarMenuItem>
         </NavbarMenu>
       </Navbar>

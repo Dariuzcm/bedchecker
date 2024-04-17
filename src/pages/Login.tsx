@@ -4,7 +4,6 @@ import {
   CardFooter,
   CardHeader,
   Divider,
-  Input,
   Button,
 } from "@nextui-org/react";
 import { ChangeEvent, MouseEvent, useState, useRef } from "react";
@@ -14,6 +13,8 @@ import {
 } from "../api/apiHandler";
 import { useStore } from "../store/store";
 import { useNavigate } from "react-router-dom";
+import { Link } from "../components/Link";
+import { CustomInput } from "../components/CustomInput";
 
 export function Login() {
   const [formValues, setFormValues] = useState({
@@ -62,13 +63,16 @@ export function Login() {
       <Card className="max-w-[400px]">
         <CardHeader className="flex gap-3 text-center">
           <div className="flex flex-col mx-auto">
-            <p className="text-md">Ingresar a Cuenta</p>
+            <p className="text-md font-semibold">Ingresar a Cuenta</p>
           </div>
         </CardHeader>
         <Divider />
         <CardBody>
-          <div className="flex flex-col gap-3 py-9">
-            <Input
+          <div className="flex flex-col gap-3 pt-0 first:items-end">
+            <div className="mb-6">
+              <Link href="/register">Crear Cuenta</Link>
+            </div>
+            <CustomInput
               name="email"
               onChange={handleOnChange}
               value={formValues.email ? formValues.email : ""}
@@ -76,9 +80,10 @@ export function Login() {
               type="email"
               label="Email"
               placeholder="Ingresa tu correo"
+              required
               disabled={loading}
             />
-            <Input
+            <CustomInput
               name="password"
               onChange={handleOnChange}
               defaultValue=""
@@ -87,14 +92,18 @@ export function Login() {
               label="Contraseña"
               placeholder="Contraseña"
               disabled={loading}
+              required
             />
+            <div className="w-full flex justify-center items-center pt-6">
+              <Link>Reestablecer Contraseña</Link>
+            </div>
           </div>
         </CardBody>
         <Divider />
         <CardFooter>
           <div className="flex flex-col gap-4 w-full px-5">
             <Button
-              className={`${
+              className={`bg-primary text-white ${
                 (formValues.email.length === 0 ||
                 formValues.password.length === 0) && "opacity-35"
               }`}
@@ -103,7 +112,6 @@ export function Login() {
                 formValues.password.length === 0
               }
               isLoading={loading}
-              color="primary"
               onClick={handleOnSubmit}
             >
               Login
@@ -112,7 +120,7 @@ export function Login() {
         </CardFooter>
       </Card>
       {Error && <div 
-        className="w-auto border-solid border-red-400 bg-red-300 border-small rounded-sm m-3 p-3" 
+        className="w-auto border-solid border-crayola-400 bg-crayola-800 border-small rounded-sm m-3 p-3" 
         ref={divRef} 
       />}
     </section>
