@@ -1,5 +1,5 @@
 import { StateCreator } from "zustand";
-import { UserActionStore, UserDataStore } from "../types/userStore.type";
+import { UserDataStore, UserStoreType } from "../types/userStore.type";
 import { User } from "../types/userTypes";
 
 const initialState: UserDataStore = {
@@ -12,7 +12,7 @@ const initialState: UserDataStore = {
   },
 };
 
-export const userStore: StateCreator<UserDataStore & UserActionStore> = (
+export const userStore: StateCreator<UserStoreType> = (
   set,
   // eslint-disable-next-line @typescript-eslint/no-unused-vars
   _get

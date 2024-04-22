@@ -59,8 +59,8 @@ export function Login() {
   };
 
   return (
-    <section className="mx-auto h-full content-center">
-      <Card className="max-w-[400px]">
+    <section className="h-full content-center">
+      <Card className="max-w-[400px] mx-auto">
         <CardHeader className="flex gap-3 text-center">
           <div className="flex flex-col mx-auto">
             <p className="text-md font-semibold">Ingresar a Cuenta</p>

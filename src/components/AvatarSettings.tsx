@@ -1,4 +1,5 @@
 import {
+  Avatar,
   Dropdown,
   DropdownItem,
   DropdownMenu,
@@ -27,26 +28,32 @@ export function AvatarSettings() {
       {user.token && (
         <Dropdown>
           <DropdownTrigger>
-            <User
-              classNames={{
-                name: "text-ellipsis overflow-hidden max-w-32",
-              }}
-              name={user.name}
-              description={user.email}
-              avatarProps={{
-                src: user.photo || "/avatarEmpty.svg",
-              }}
-            />
+            <Avatar src={user.photo || "/avatarEmpty.svg"} />
           </DropdownTrigger>
-          <DropdownMenu aria-label="Static Actions">
-            <DropdownItem key="new">
+          <DropdownMenu
+            className="flex flex-col gap-3"
+            aria-label="Config options"
+          >
+            <DropdownItem key={"avatar"} closeOnSelect={false}>
+              <User
+                classNames={{
+                  name: "text-ellipsis overflow-hidden max-w-32",
+                }}
+                name={user.name}
+                description={user.email}
+                avatarProps={{
+                  src: user.photo || "/avatarEmpty.svg",
+                }}
+              />
+            </DropdownItem>
+            <DropdownItem key="config">
               <div className="flex text-slate-800 justify-between px-5">
                 <SettingsIcon className="size-6" />
                 <span>Configuración</span>
               </div>
             </DropdownItem>
             <DropdownItem
-              key="delete"
+              key="logout"
               className="text-crayola"
               onClick={handleOnLogout}
             >
