@@ -11,13 +11,14 @@ export function FooterNavBar() {
 
   const navigation = useNavigate();
   const location = useLocation();
+
   useEffect(() => {
-    if (!user.token && ['register'].includes(location.pathname)) {
+    if (!user.token && ["register"].includes(location.pathname)) {
       navigation("/login");
     }
-  // eslint-disable-next-line react-hooks/exhaustive-deps
+    else if (!user.verificated && user.token) navigation("/validate");
+    // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [user]);
-
 
   const footBarItems: NavBarItemFooterType[] = [
     {
@@ -42,7 +43,10 @@ export function FooterNavBar() {
         <ul className="flex justify-between p-3 items-center mx-5">
           {footBarItems.map((item, index) => (
             <li className="h-full" key={`footbar-${index}`}>
-              <NavBarItemFooter isDisabled={!user.token} {...item} />{" "}
+              <NavBarItemFooter
+                isDisabled={!user.token || !user.verificated}
+                {...item}
+              />{" "}
             </li>
           ))}
         </ul>

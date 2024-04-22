@@ -16,10 +16,11 @@ export function AvatarSettings() {
     user: state.user,
     restartUser: state.restartUser,
   }));
-
+  
   const handleOnLogout = () => {
     logoutAction(user.token!).then(() => {
       restartUser();
+      window.location.replace('/login')
     });
   };
 
@@ -33,6 +34,7 @@ export function AvatarSettings() {
           <DropdownMenu
             className="flex flex-col gap-3"
             aria-label="Config options"
+            disabledKeys={!user.verificated ? ['config']: undefined}
           >
             <DropdownItem key={"avatar"} closeOnSelect={false}>
               <User

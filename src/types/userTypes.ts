@@ -5,9 +5,13 @@ export interface User {
   email: string
   type?: 'user' | 'admin'
   token?: Token | null
+  employeeNumber?: string
+  inactive?: boolean
+  verificated?: boolean
   createdAt?: string
   updatedAt?: string
 }
+
 
 export type Token = {
   type: string;

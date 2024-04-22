@@ -13,12 +13,11 @@ interface ChartData<T> {
 }
 const GraphComponent: FunctionComponent<GraphComponentProps> = () => {
   // eslint-disable-next-line @typescript-eslint/no-unused-vars
-  
-  const [ _, setValue] = useState<EventProps>(null)
+  const [ _value, setValue] = useState<EventProps>(null)
   //const chartdata: ChartData[] = []
   return (
     <>
-      <div className="flex flex-col gap-3">
+      {/* <div className="flex flex-col gap-3">
         <h1 className="text-3xl">Actividad de la semana</h1>
         <LineChart
           className="h-80"
@@ -29,7 +28,7 @@ const GraphComponent: FunctionComponent<GraphComponentProps> = () => {
           yAxisWidth={60}
           onValueChange={(v) => setValue(v)}
         />
-      </div>
+      </div> */}
     </>
   );
 };

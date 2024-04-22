@@ -62,28 +62,29 @@ export function Navigation() {
   const menuChildren = (items: NavItemType[]) => {
     const childrens: React.ReactNode[] = [];
     for (const item of items) {
-      const index = items.indexOf(item)
+      const index = items.indexOf(item);
       if (item.childs !== undefined) {
         childrens.push(
           <NavbarMenuItem key={`${item.name}-${index}`}>
-            <Accordion itemClasses={{
-              trigger: "bg-transparent border-0",
-              content: "bg-transparent",
-              heading: "bg-transparent text-primary",
-              title: "text-[18px] text-primary font-normal",
-              base: "border-0"
-            }} as={'div'}>
+            <Accordion
+              itemClasses={{
+                trigger: "bg-transparent border-0",
+                content: "bg-transparent",
+                heading: "bg-transparent text-primary",
+                title: "text-[18px] text-primary font-normal",
+                base: "border-0",
+              }}
+              as={"div"}
+            >
               <AccordionItem title={item.name}>
-                <div className="pl-6">
-                  {menuChildren(item.childs)}
-                </div>
+                <div className="pl-6">{menuChildren(item.childs)}</div>
               </AccordionItem>
             </Accordion>
           </NavbarMenuItem>
         );
       } else
         childrens.push(
-          <NavbarMenuItem key={`${item.name}-${index}`}className="p-2">
+          <NavbarMenuItem key={`${item.name}-${index}`} className="p-2">
             <Link href={item.url}>{item.name}</Link>
           </NavbarMenuItem>
         );
@@ -98,11 +99,13 @@ export function Navigation() {
         className="transition-all ease-in"
       >
         <NavbarContent>
-          <NavbarMenuToggle
-            icon={( isOpen ) => isOpen? <CloseIcon /> : <MenuIcon /> }
-            aria-label={isMenuOpen ? "Close menu" : "Open menu"}
-            className={`bg-white p-0 w-12`}
-          />
+          {(user.token && user.verificated) && (
+            <NavbarMenuToggle
+              icon={(isOpen) => (isOpen ? <CloseIcon /> : <MenuIcon />)}
+              aria-label={isMenuOpen ? "Close menu" : "Open menu"}
+              className={`bg-white p-0 w-12`}
+            />
+          )}
           <NavbarBrand className="justify-center transition-all ease-linear">
             <h1 className="font-bold text-inherit text-xl">BedChecker</h1>
           </NavbarBrand>
