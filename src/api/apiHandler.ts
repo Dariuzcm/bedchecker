@@ -83,7 +83,7 @@ export const createToken = async (
 ) => {
   if (!user.token) throw Error("No Token Exception");
   isLoading && isLoading(true);
-  const accessToken = user.token
+  const accessToken = user.token;
 
   try {
     const { status } = await requestHandler.post(
@@ -96,8 +96,8 @@ export const createToken = async (
       }
     );
 
-    if(status !== 204) {
-      throw Error('Something whent wrong on create validation token')
+    if (status !== 204) {
+      throw Error("Something whent wrong on create validation token");
     }
   } catch (error) {
     throw Error("Something whent wrong, Network Error");
@@ -105,6 +105,59 @@ export const createToken = async (
     isLoading && isLoading(false);
   }
 };
+
+export const validateVerificationToken = async (
+  token: string,
+  user: User,
+  isLoading?: React.Dispatch<React.SetStateAction<boolean>>
+) => {
+  if (!user.token) throw Error("No Token Exception");
+  isLoading && isLoading(true);
+  const accessToken = user.token;
+
+  try {
+    const { status } = await requestHandler.post(
+      "validation/validate",
+      { verificationToken: token },
+      {
+        headers: {
+          Authorization: `${capitalize(accessToken.type)} ${accessToken.token}`,
+        },
+      }
+    );
+
+    if (status !== 204) {
+      throw Error("Something whent wrong on create validation token");
+    }
+  } catch (error) {
+    throw Error("Something whent wrong, Network Error");
+  } finally {
+    isLoading && isLoading(false);
+  }
+};
+
+export const refreshUser = async (user: User) => {
+  if (!user.token) throw Error("No Token Exception");
+  const accessToken = user.token;
+  
+  try {
+    const { status, data } = await requestHandler.get(
+      "users/me",
+      {
+        headers: {
+          Authorization: `${capitalize(accessToken.type)} ${accessToken.token}`,
+        },
+      }
+    );
+
+    if (status > 299) {
+      throw Error("Something whent wrong on create validation token");
+    }
+    return data
+  } catch (error) {
+    throw Error("Something whent wrong, Network Error");
+  }
+}
 // export const capacitorLoginAction = async (
 //   email: string,
 //   password: string,

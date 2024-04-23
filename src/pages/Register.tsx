@@ -11,7 +11,7 @@ import { CloseIcon } from "../icons/Close";
 import { useNavigate } from "react-router-dom";
 import { ChangeEvent, useState } from "react";
 import type { Token, User } from "../types/userTypes";
-import { registration } from "../api/apiHandler";
+import { createToken, registration } from "../api/apiHandler";
 import { useStore } from "../store/store";
 
 type RegistryType = Pick<
@@ -95,10 +95,14 @@ export function Register() {
   const handleOnClick = () => {
     registration(registryValues, setLoading).then((data: {user: User, token: Token}) => {
       const { user, token } = data
-      setUser({
+      const newUser = {
         ...user,
         token
+      }
+      setUser({
+        ...newUser
       })
+      createToken(newUser)
     })
   }
   return (

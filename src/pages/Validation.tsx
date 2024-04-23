@@ -9,10 +9,24 @@ import {
 import { ChangeEvent, useState } from "react";
 import { CustomInput } from "../components/CustomInput";
 import { useStore } from "../store/store";
+import { Link } from "../components/Link";
+import {
+  createToken,
+  refreshUser,
+  validateVerificationToken,
+} from "../api/apiHandler";
+import { useNavigate } from "react-router-dom";
 
 function Validation() {
-  const { user } = useStore((state) => ({ user: state.user }));
+  const { user, setUser } = useStore((state) => ({
+    user: state.user,
+    setUser: state.setUser,
+  }));
+
   const [ValidationNumber, setValidationNumber] = useState("");
+  const [Loading, setLoading] = useState(false);
+
+  const navigate = useNavigate()
 
   const handleOnChange = (e: ChangeEvent<HTMLInputElement>) => {
     const { value } = e.target;
@@ -22,8 +36,18 @@ function Validation() {
     if (value.length < 6) setValidationNumber(value);
   };
 
-  const handleOnClick = () => {};
+  const handleOnClick = () => {
+    validateVerificationToken(ValidationNumber, user, setLoading).then(() => {
+      refreshUser(user).then((incomingUser) => {
+        setUser(incomingUser);
+        navigate('/home')
+      });
+    });
+  };
 
+  const handleResendCode = () => {
+    createToken(user);
+  };
   return (
     <>
       <section className="mx-auto h-full content-center">
@@ -55,13 +79,19 @@ function Validation() {
                 }}
                 value={ValidationNumber}
               />
+              <Link onClick={handleResendCode} className="text-end">
+                Resend Validation token
+              </Link>
             </div>
           </CardBody>
           <Divider />
           <CardFooter>
             <Button
-              className={`${ValidationNumber.length < 5 && "opacity-50"}`}
+              className={`${
+                (ValidationNumber.length < 5 || Loading) && "opacity-50"
+              }`}
               disabled={ValidationNumber.length < 5}
+              isLoading={Loading}
               onClick={handleOnClick}
               color="secondary"
               fullWidth
