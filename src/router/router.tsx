@@ -8,6 +8,7 @@ import { Register } from "../pages/Register";
 import Profile from "../pages/Profile";
 import Validation from "../pages/Validation";
 import { Navigation } from "../components/Navigation";
+import ProfileImageSelector from "../pages/ProfileImageSelector";
 
 export const ReactRouter = () => (
   <BrowserRouter>
@@ -21,7 +22,10 @@ export const ReactRouter = () => (
         <Route path="/list" element={<Journeys />} />
         <Route path="/register" element={<Register />} />
         <Route path="/validate" element={<Validation />} />
-        <Route path="/profile" element={<Profile />} />
+        <Route path="/profile">
+          <Route path="/profile" element={<Profile />} />
+          <Route path="/profile/imgSelector" element={<ProfileImageSelector />} />
+        </Route>
         <Route path="*" element={<NotFound />} />
       </Routes>
     </main>

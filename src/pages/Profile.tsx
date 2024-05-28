@@ -36,6 +36,7 @@ function Profile() {
                   className="text-white relative -right-16 -top-8"
                   color="success"
                   isIconOnly
+                  onClick={() => navigation('/profile/imgSelector')}
                 >
                   <CameraIcon />
                 </Button>
