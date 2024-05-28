@@ -5,6 +5,7 @@ import { HomePage } from "../pages/HomePage";
 import { Journeys } from "../pages/Journeys";
 import { Login } from "../pages/Login";
 import { Register } from "../pages/Register";
+import Profile from "../pages/Profile";
 import Validation from "../pages/Validation";
 
 export const ReactRouter = () => (
@@ -17,6 +18,7 @@ export const ReactRouter = () => (
       <Route path="/list" element={<Journeys />} />
       <Route path="/register" element={<Register />} />
       <Route path="/validate" element={<Validation />} />
+      <Route path="/profile" element={<Profile />} />
       <Route path="*" element={<NotFound />} />
     </Routes>
     <FooterNavBar />

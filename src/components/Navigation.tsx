@@ -2,13 +2,13 @@ import {
   Accordion,
   AccordionItem,
   Button,
-  Link,
   Navbar,
   NavbarBrand,
   NavbarContent,
   NavbarItem,
   NavbarMenu,
   NavbarMenuItem,
+  Link,
   NavbarMenuToggle,
 } from "@nextui-org/react";
 import { useState } from "react";
@@ -17,6 +17,7 @@ import { logoutAction } from "../api/apiHandler";
 import { useStore } from "../store/store";
 import { MenuIcon } from "../icons/MenuIcon";
 import { CloseIcon } from "../icons/Close";
+
 
 type NavItemType = {
   name: string;
@@ -48,7 +49,7 @@ export function Navigation() {
       //   },
       // ],
     },
-    { name: "Perfil", url: "" },
+    { name: "Perfil", url: "/profile" },
     { name: "Mis Movimientos", url: "/movements" },
     { name: "Crear Movimiento", url: "/movements/create" },
   ];

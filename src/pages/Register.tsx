@@ -155,7 +155,7 @@ export function Register() {
                 isInvalid={!!validateInputs("email") as boolean}
                 errorMessage={validateInputs("email")}
                 value={registryValues.email}
-                type="enail"
+                type="email"
                 label="Email"
                 placeholder="Correo electrónico"
                 required

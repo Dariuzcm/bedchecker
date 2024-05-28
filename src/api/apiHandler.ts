@@ -1,4 +1,4 @@
-import { Token, User } from "../types/userTypes";
+import { Token, User, UserFields } from "../types/userTypes";
 import { capitalize } from "../utils/utils";
 import requestHandler from "./requestHandler";
 
@@ -139,25 +139,41 @@ export const validateVerificationToken = async (
 export const refreshUser = async (user: User) => {
   if (!user.token) throw Error("No Token Exception");
   const accessToken = user.token;
-  
+
   try {
-    const { status, data } = await requestHandler.get(
-      "users/me",
-      {
-        headers: {
-          Authorization: `${capitalize(accessToken.type)} ${accessToken.token}`,
-        },
-      }
-    );
+    const { status, data } = await requestHandler.get("users/me", {
+      headers: {
+        Authorization: `${capitalize(accessToken.type)} ${accessToken.token}`,
+      },
+    });
 
     if (status > 299) {
       throw Error("Something whent wrong on create validation token");
     }
-    return data
+    return data;
   } catch (error) {
     throw Error("Something whent wrong, Network Error");
   }
-}
+};
+
+export const updateUser = async (user: User) => {
+  if (!user.token) throw Error("No Token Exception");
+  const accessToken = user.token;
+  try {
+    const { status, data } = await requestHandler.put("users", (user as UserFields), {
+      headers: {
+        Authorization: `${capitalize(accessToken.type)} ${accessToken.token}`,
+      },
+    });
+
+    if (status > 299) {
+      throw Error("Something whent wrong on update user");
+    }
+    return data;
+  } catch (e) {
+    throw Error("Something whent wrong, Network Error");
+  }
+};
 // export const capacitorLoginAction = async (
 //   email: string,
 //   password: string,

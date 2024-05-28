@@ -9,5 +9,6 @@ export const userStore: StateCreator<MovementStoreType> = (
   // eslint-disable-next-line @typescript-eslint/no-unused-vars
   _get
 ) => ({
+  ...initialState,
   restartMovement: () => set({ })
 });

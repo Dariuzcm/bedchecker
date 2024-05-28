@@ -12,6 +12,7 @@ export interface User {
   updatedAt?: string
 }
 
+export type UserFields = Pick<User, 'email' | 'employeeNumber' | 'photo' | 'name'>
 
 export type Token = {
   type: string;

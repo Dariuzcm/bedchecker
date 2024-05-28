@@ -1,19 +1,22 @@
-import { EventProps, LineChart } from "@tremor/react";
-import { FunctionComponent, useState } from "react";
+// import { EventProps, LineChart } from "@tremor/react";
+import { 
+  FunctionComponent, 
+  //useState
+} from "react";
 
 interface GraphComponentProps {}
 
-type PropertiesMapped<T> = {
-  [Property in keyof T] : T[Property]
-}
+// type PropertiesMapped<T> = {
+//   [Property in keyof T] : T[Property]
+// }
 
-interface ChartData<T> {
-  mapped: PropertiesMapped<T>
-  date: string
-}
+// interface ChartData<T> {
+//   mapped: PropertiesMapped<T>
+//   date: string
+// }
 const GraphComponent: FunctionComponent<GraphComponentProps> = () => {
   // eslint-disable-next-line @typescript-eslint/no-unused-vars
-  const [ _value, setValue] = useState<EventProps>(null)
+  // const [ _value, setValue] = useState<EventProps>(null)
   //const chartdata: ChartData[] = []
   return (
     <>
