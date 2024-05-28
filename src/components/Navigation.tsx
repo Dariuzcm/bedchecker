@@ -8,7 +8,6 @@ import {
   NavbarItem,
   NavbarMenu,
   NavbarMenuItem,
-  Link,
   NavbarMenuToggle,
 } from "@nextui-org/react";
 import { useState } from "react";
@@ -17,6 +16,7 @@ import { logoutAction } from "../api/apiHandler";
 import { useStore } from "../store/store";
 import { MenuIcon } from "../icons/MenuIcon";
 import { CloseIcon } from "../icons/Close";
+import { Link } from "react-router-dom";
 
 
 type NavItemType = {
@@ -60,6 +60,11 @@ export function Navigation() {
     });
   };
 
+  const handleClose = () => {
+    console.log('closing')
+    setIsMenuOpen(false)
+  }
+
   const menuChildren = (items: NavItemType[]) => {
     const childrens: React.ReactNode[] = [];
     for (const item of items) {
@@ -86,7 +91,7 @@ export function Navigation() {
       } else
         childrens.push(
           <NavbarMenuItem key={`${item.name}-${index}`} className="p-2">
-            <Link href={item.url}>{item.name}</Link>
+            <Link onClick={handleClose} to={item.url!}>{item.name}</Link>
           </NavbarMenuItem>
         );
     }
@@ -98,10 +103,12 @@ export function Navigation() {
       <Navbar
         onMenuOpenChange={setIsMenuOpen}
         className="transition-all ease-in"
+        isMenuOpen={isMenuOpen}
       >
         <NavbarContent>
           {(user.token && user.verificated) && (
             <NavbarMenuToggle
+              
               icon={(isOpen) => (isOpen ? <CloseIcon /> : <MenuIcon />)}
               aria-label={isMenuOpen ? "Close menu" : "Open menu"}
               className={`bg-white p-0 w-12`}

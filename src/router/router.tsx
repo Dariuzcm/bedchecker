@@ -7,20 +7,24 @@ import { Login } from "../pages/Login";
 import { Register } from "../pages/Register";
 import Profile from "../pages/Profile";
 import Validation from "../pages/Validation";
+import { Navigation } from "../components/Navigation";
 
 export const ReactRouter = () => (
   <BrowserRouter>
-    <Routes>
-      <Route path="/" element={<Navigate to="/home" />} />
-      <Route path="/home" element={<HomePage />} />
-      <Route path="/404" element={<NotFound />} />
-      <Route path="/login" element={<Login />} />
-      <Route path="/list" element={<Journeys />} />
-      <Route path="/register" element={<Register />} />
-      <Route path="/validate" element={<Validation />} />
-      <Route path="/profile" element={<Profile />} />
-      <Route path="*" element={<NotFound />} />
-    </Routes>
+    <Navigation />
+    <main className="p-6 pb-8 w-full h-[85vh] overflow-auto">
+      <Routes>
+        <Route path="/" element={<Navigate to="/home" />} />
+        <Route path="/home" element={<HomePage />} />
+        <Route path="/404" element={<NotFound />} />
+        <Route path="/login" element={<Login />} />
+        <Route path="/list" element={<Journeys />} />
+        <Route path="/register" element={<Register />} />
+        <Route path="/validate" element={<Validation />} />
+        <Route path="/profile" element={<Profile />} />
+        <Route path="*" element={<NotFound />} />
+      </Routes>
+    </main>
     <FooterNavBar />
   </BrowserRouter>
 );

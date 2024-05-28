@@ -10,6 +10,7 @@ import { useStore } from "../store/store";
 import { SettingsIcon } from "../icons/SettingsIcon";
 import { Logout } from "../icons/Logout";
 import { logoutAction } from "../api/apiHandler";
+import { Link } from "react-router-dom";
 
 export function AvatarSettings() {
   const { user, restartUser } = useStore((state) => ({
@@ -49,10 +50,12 @@ export function AvatarSettings() {
               />
             </DropdownItem>
             <DropdownItem key="config">
-              <div className="flex text-slate-800 justify-between px-5">
-                <SettingsIcon className="size-6" />
-                <span>Configuración</span>
-              </div>
+              <Link to={'/profile'}>
+                <div className="flex text-slate-800 justify-between px-5">
+                  <SettingsIcon className="size-6" />
+                  <span>Configuración</span>
+                </div>
+              </Link>
             </DropdownItem>
             <DropdownItem
               key="logout"
