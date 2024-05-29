@@ -99,7 +99,7 @@ export function Navigation() {
   };
 
   return (
-    <>
+    <header>
       <Navbar
         onMenuOpenChange={setIsMenuOpen}
         className="transition-all ease-in"
@@ -134,6 +134,6 @@ export function Navigation() {
           </NavbarMenuItem>
         </NavbarMenu>
       </Navbar>
-    </>
+    </header>
   );
 }

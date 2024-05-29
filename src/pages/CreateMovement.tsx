@@ -1,9 +1,16 @@
 import { Button, Card, CardBody, CardFooter, CardHeader, Divider, Textarea } from "@nextui-org/react";
 import { FunctionComponent } from "react";
+import { useNavigate } from "react-router-dom";
 
 interface CreateMovementProps {}
 
 const CreateMovement: FunctionComponent<CreateMovementProps> = () => {
+  const navigation = useNavigate()
+
+  function handleOnStartScan(): void {
+    navigation('/movements/scanner')
+  }
+
   return (
     <>
       <section>
@@ -25,7 +32,7 @@ const CreateMovement: FunctionComponent<CreateMovementProps> = () => {
             <Divider />
             <div className="px-6 py-10 flex flex-col gap-6">
               <Textarea minRows={6} label="Notas" placeholder="(Opcional) Agrega algunas notas..."/>
-              <Button color="primary" size="lg" fullWidth>Escanear habitación</Button>
+              <Button onClick={handleOnStartScan} color="primary" size="lg" fullWidth>Escanear habitación</Button>
             </div>
           </CardBody>
           <CardFooter>

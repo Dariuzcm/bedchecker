@@ -38,7 +38,7 @@ export function FooterNavBar() {
     },
   ];
   return (
-    <>
+    <footer>
       <div className="w-full bg-white bottom-5 left-0 right-0 h-10 fixed">
         <ul className="flex justify-between p-3 items-center mx-5">
           {footBarItems.map((item, index) => (
@@ -51,6 +51,6 @@ export function FooterNavBar() {
           ))}
         </ul>
       </div>
-    </>
+    </footer>
   );
 }

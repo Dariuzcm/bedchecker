@@ -10,9 +10,12 @@ import Validation from "@/pages/Validation";
 import { Navigation } from "@/components/Navigation";
 import ProfileImageSelector from "@/pages/ProfileImageSelector";
 import CreateMovement from "@/pages/CreateMovement";
-import BarcodeScannerComponent from "@/pages/BarcodeScannerComponent";
+import { lazy } from "react";
+import MovementList from "@/pages/MovementList";
 
+const BarcodeScannerComponent = lazy(() => import('@/pages/BarcodeScannerComponent'));
 export const ReactRouter = () => (
+  <div className="size-full">
   <BrowserRouter>
     <Navigation />
     <main className="p-6 pb-8 w-full h-[85vh] overflow-auto">
@@ -29,7 +32,8 @@ export const ReactRouter = () => (
           <Route path="/profile/imgSelector" element={<ProfileImageSelector />} />
         </Route>
         <Route path="/movements">
-          <Route path="/movements" element={<CreateMovement />}/>
+          <Route path="/movements" element={<MovementList />}/>
+          <Route path="/movements/create" element={<CreateMovement />}/>
           <Route path="/movements/scanner" element={<BarcodeScannerComponent />}/>
         </Route>
         <Route path="*" element={<NotFound />} />
@@ -38,4 +42,5 @@ export const ReactRouter = () => (
     </main>
     <FooterNavBar />
   </BrowserRouter>
+  </div>
 );
