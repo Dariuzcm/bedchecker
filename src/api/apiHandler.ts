@@ -174,6 +174,31 @@ export const updateUser = async (user: User) => {
     throw Error("Something whent wrong, Network Error");
   }
 };
+
+export const updatePhoto = async (user: User, photo: Blob) => {
+  if (!user.token) throw Error("No Token Exception");
+  const accessToken = user.token;
+
+  const formData = new FormData()
+  formData.append('avatar', photo)
+
+  const { status, data } = await requestHandler.post("users/photo", formData, {
+    headers: {
+      Authorization: `${capitalize(accessToken.type)} ${accessToken.token}`,
+      'Content-Type': 'multipart/form-data',
+    }
+  })
+  if (status > 299) {
+    throw Error("Something whent wrong on create validation token");
+  }
+  return data;
+}
+
+// eslint-disable-next-line @typescript-eslint/no-unused-vars
+export const deletePhoto = async (_user: User) => {
+  throw new Error("Not supported yet")  
+}
+
 // export const capacitorLoginAction = async (
 //   email: string,
 //   password: string,

@@ -2,6 +2,7 @@ export interface User {
   id: number
   name: string
   photo: string
+  photoId: string
   email: string
   type?: 'user' | 'admin'
   token?: Token | null

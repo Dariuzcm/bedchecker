@@ -1,27 +1,57 @@
 import { Button, Card, CardBody, Slider } from "@nextui-org/react";
 
-import { FunctionComponent, useEffect, useState } from "react";
+import { FunctionComponent, useEffect, useRef, useState } from "react";
 
 import AvatarEditor from "react-avatar-editor";
 import { CameraUp } from "../icons/CameraUp";
 import CameraSearch from "../icons/CameraSearch";
 import CameraDelete from "../icons/CameraDelete";
 import { useNavigate } from "react-router-dom";
-import { Camera, CameraResultType } from "@capacitor/camera";
+import { Camera, CameraResultType, CameraSource } from "@capacitor/camera";
 
-import MaleAvatar from '@/assets/male_avatar.webp'
+import MaleAvatar from "@/assets/male_avatar.webp";
+import { deletePhoto, updatePhoto } from "@/api/apiHandler";
+import { useStore } from "@/store/store";
+import { User } from "@/types/userTypes";
 
 interface ProfileImageSelectorProps {}
 
 const ProfileImageSelector: FunctionComponent<
   ProfileImageSelectorProps
 > = () => {
+  const { user, setUser } = useStore((state) => ({
+    user: state.user,
+    setUser: state.setUser,
+  }));
+
   const [Scale, setScale] = useState(1);
-  const [Image, setImage] = useState(MaleAvatar);
+  const [Image, setImage] = useState(user.photo || MaleAvatar);
 
   const navigation = useNavigate();
 
-  const handleOnSave = () => {};
+  const handleOnSave = () => {
+    if (Image === MaleAvatar) {
+      deletePhoto(user).then(() => {
+        setUser({
+          photo: undefined,
+        });
+      });
+      return;
+    }
+
+    const { current } = setEditorRef;
+    if (current) {
+      (current.getImage() as HTMLCanvasElement).toBlob((blob) => {
+        if (blob) {
+          updatePhoto(user, blob).then(({ photo }: User) => {
+            setUser({
+              photo
+            })
+          })
+        }
+      })
+    }
+  };
 
   const handleOnCancel = () => {
     navigation("/profile");
@@ -30,26 +60,27 @@ const ProfileImageSelector: FunctionComponent<
   async function handleTakeImage() {
     const image = await Camera.getPhoto({
       quality: 90,
-      allowEditing: true,
       resultType: CameraResultType.Uri,
+      source: CameraSource.Camera,
     });
 
     const imageUrl = image.webPath;
 
-    setImage(imageUrl || "");
+    if (imageUrl) setImage(imageUrl);
   }
 
   async function handleSearchImage() {
-    const image = await Camera.pickImages({
-      quality: 50,
-      limit: 1,
+    const image = await Camera.getPhoto({
+      quality: 90,
+      resultType: CameraResultType.Uri,
+      source: CameraSource.Photos,
     });
-    const imageUrl = image.photos[0].webPath;
-    setImage(imageUrl);
+    const imageUrl = image.webPath;
+    if (imageUrl) setImage(imageUrl);
   }
 
   function handleDeleteImage() {
-    setImage(MaleAvatar)
+    setImage(MaleAvatar);
   }
 
   async function checkPermissions() {
@@ -60,9 +91,13 @@ const ProfileImageSelector: FunctionComponent<
       });
     }
   }
+
   useEffect(() => {
     checkPermissions();
   }, []);
+
+  // eslint-disable-next-line @typescript-eslint/no-explicit-any
+  const setEditorRef = useRef<any>(null);
 
   return (
     <>
@@ -71,6 +106,8 @@ const ProfileImageSelector: FunctionComponent<
           <CardBody>
             <div className="flex flex-col justify-center content-center items-center w-full pt-6 gap-4 px-3">
               <AvatarEditor
+                ref={setEditorRef}
+                crossOrigin={'*'}
                 image={Image}
                 width={200}
                 height={200}
