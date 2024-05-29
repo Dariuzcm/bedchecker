@@ -3,11 +3,15 @@ import { UserStoreType } from "../types/userStore.type";
 import { userStore } from "./userStore";
 import { mountStoreDevtool } from "simple-zustand-devtools";
 import { persist } from "zustand/middleware";
+import { movementStore } from "./useMovements";
+import { MovementStoreType } from "@/types/movementStore.type";
 
-export const useStore = create<UserStoreType, [["zustand/persist", UserStoreType]]>(
+type StoreType = MovementStoreType & UserStoreType
+export const useStore = create<StoreType, [["zustand/persist", StoreType]]>(
   persist(
     (...a) => ({
       ...userStore(...a),
+      ...movementStore(...a),
     }),
     {
       name: "mainStore",

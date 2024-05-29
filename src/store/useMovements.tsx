@@ -7,7 +7,7 @@ const initialState: MovementDataStore = {
   services: [],
   beds: []
 };
-export const userStore: StateCreator<MovementStoreType> = (
+export const movementStore: StateCreator<MovementStoreType> = (
   set,
   // eslint-disable-next-line @typescript-eslint/no-unused-vars
   _get

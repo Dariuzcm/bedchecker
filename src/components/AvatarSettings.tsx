@@ -56,7 +56,7 @@ export function AvatarSettings() {
             </DropdownItem>
             <DropdownItem key="config">
               <Link to={"/profile"}>
-                <div className="flex text-slate-800 justify-between px-5">
+                <div className="flex text-slate-800 justify-left gap-3 w-full px-5">
                   <SettingsIcon className="size-6" />
                   <span>Configuración</span>
                 </div>
@@ -67,7 +67,7 @@ export function AvatarSettings() {
               className="text-crayola"
               onClick={handleOnLogout}
             >
-              <div className="flex justify-center gap-3 px-7">
+              <div className="flex justify-left gap-3 w-full px-5">
                 <Logout className="size-6" />
                 <span>Logout</span>
               </div>
