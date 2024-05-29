@@ -8,9 +8,8 @@ import { useStore } from "../store/store";
 import { useNavigate } from "react-router-dom";
 import { Link } from "../components/Link";
 import { CustomInput } from "../components/CustomInput";
-import { Card, CardBody, CardFooter, CardHeader } from "@nextui-org/card";
-import { Divider } from "@nextui-org/divider";
-import { Button } from "@nextui-org/button";
+import { Button, Card, CardBody, CardFooter, CardHeader, Divider } from "@nextui-org/react";
+
 
 export function Login() {
   const [formValues, setFormValues] = useState({

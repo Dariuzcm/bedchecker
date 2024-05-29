@@ -9,6 +9,7 @@ const initialState: UserDataStore = {
     photo: "",
     email: "",
     token: null,
+    photoId: ""
   },
 };
 

@@ -1,8 +1,5 @@
-import { Card, CardBody, CardHeader, CardFooter } from "@nextui-org/card";
-import { Divider } from "@nextui-org/divider";
-import { Button } from "@nextui-org/button"
+import { Button, Card, CardBody, CardFooter, CardHeader, Divider, Textarea } from "@nextui-org/react";
 import { FunctionComponent } from "react";
-import { Textarea } from "@nextui-org/input";
 
 interface CreateMovementProps {}
 
