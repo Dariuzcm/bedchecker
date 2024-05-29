@@ -1,9 +1,10 @@
 import { CapacitorConfig } from '@capacitor/cli';
 
 const config: CapacitorConfig = {
-  appId: 'com.example.app',
+  appId: 'com.bedchecker.app',
   appName: 'bedchecker',
   webDir: 'dist',
+  bundledWebRuntime: true,
   server: {
     androidScheme: 'http',
     allowNavigation: [

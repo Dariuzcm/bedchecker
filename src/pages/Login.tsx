@@ -1,11 +1,4 @@
-import {
-  Card,
-  CardBody,
-  CardFooter,
-  CardHeader,
-  Divider,
-  Button,
-} from "@nextui-org/react";
+
 import { ChangeEvent, MouseEvent, useState, useRef } from "react";
 import { 
   //capacitorLoginAction, 
@@ -15,6 +8,9 @@ import { useStore } from "../store/store";
 import { useNavigate } from "react-router-dom";
 import { Link } from "../components/Link";
 import { CustomInput } from "../components/CustomInput";
+import { Card, CardBody, CardFooter, CardHeader } from "@nextui-org/card";
+import { Divider } from "@nextui-org/divider";
+import { Button } from "@nextui-org/button";
 
 export function Login() {
   const [formValues, setFormValues] = useState({

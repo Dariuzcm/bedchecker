@@ -10,19 +10,24 @@ import { useStore } from "../store/store";
 import { SettingsIcon } from "../icons/SettingsIcon";
 import { Logout } from "../icons/Logout";
 import { logoutAction } from "../api/apiHandler";
-import { Link } from "react-router-dom";
+import { Link, useNavigate } from "react-router-dom";
 
 export function AvatarSettings() {
   const { user, restartUser } = useStore((state) => ({
     user: state.user,
     restartUser: state.restartUser,
   }));
-  
+  const navigation = useNavigate()
   const handleOnLogout = () => {
-    logoutAction(user.token!).then(() => {
-      restartUser();
-      window.location.replace('/login')
-    });
+    logoutAction(user.token!)
+      .then(() => {
+        restartUser();
+        navigation("/login");
+      })
+      .catch(() => {
+        restartUser();
+        navigation("/login");
+      });
   };
 
   return (
@@ -35,7 +40,7 @@ export function AvatarSettings() {
           <DropdownMenu
             className="flex flex-col gap-3"
             aria-label="Config options"
-            disabledKeys={!user.verificated ? ['config']: undefined}
+            disabledKeys={!user.verificated ? ["config"] : undefined}
           >
             <DropdownItem key={"avatar"} closeOnSelect={false}>
               <User
@@ -50,7 +55,7 @@ export function AvatarSettings() {
               />
             </DropdownItem>
             <DropdownItem key="config">
-              <Link to={'/profile'}>
+              <Link to={"/profile"}>
                 <div className="flex text-slate-800 justify-between px-5">
                   <SettingsIcon className="size-6" />
                   <span>Configuración</span>
