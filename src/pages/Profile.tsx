@@ -43,6 +43,7 @@ function Profile() {
               </div>
               <SelfEditInput
                 ObjKey={"name"}
+                defaultText="Nombre"
                 object={user}
                 partialEditor={setUser}
               />
@@ -50,6 +51,7 @@ function Profile() {
                 classNames={{
                   title: "text-md text-zinc-500",
                 }}
+                defaultText="Email"
                 ObjKey={"email"}
                 object={user}
                 partialEditor={setUser}

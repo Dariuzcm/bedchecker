@@ -43,8 +43,11 @@ const SelfEditInput: FunctionComponent<SelfEditInputProps<any>> = (props) => {
   };
 
   return (
-    <>
-      <div className="flex justify-center contents-center items-center gap-3 w-full pl-3 pr-3">
+    <div className="w-full px-5">
+      <div className="relative p-0">
+        {defaultText && <h4 className="font-semibold">{defaultText}</h4>}
+      </div>
+      <div className="flex justify-between contents-center items-center gap-3 w-full pl-3 pr-0">
         {editting ? (
           <>
             <input
@@ -78,7 +81,8 @@ const SelfEditInput: FunctionComponent<SelfEditInputProps<any>> = (props) => {
         ) : (
           <>
             <h2 className={classNames?.title || `text-lg font-semibold text-ellipsis text-nowrap overflow-hidden max-w-[80%]`}>
-              {object?.[ObjKey]?.length > 0 ?( object?.[ObjKey] ): defaultText }
+              {console.log(ObjKey, object, object?.[ObjKey])}
+              {object?.[ObjKey]?.toString()?.length > 0 ? ( object?.[ObjKey]): defaultText }
             </h2>
             <Button
               className="text-secondary"
@@ -91,7 +95,7 @@ const SelfEditInput: FunctionComponent<SelfEditInputProps<any>> = (props) => {
           </>
         )}
       </div>
-    </>
+    </div>
   );
 };
 
