@@ -1,6 +1,14 @@
-import { AnchorHTMLAttributes } from "react";
+import { FunctionComponent } from "react";
+import { Link, LinkProps } from "react-router-dom";
 
-export function Link(props: AnchorHTMLAttributes<HTMLAnchorElement>) {
-  const mainClass = "text-keppel underline font-semibold text-sm";
-  return <a {...props} className={mainClass + ' ' +props?.className}></a>;
-}
+interface CustomLinkProps {}
+
+const CustomLink: FunctionComponent<CustomLinkProps & LinkProps> = (props) => {
+  const mainClass = "text-secondary underline font-semibold text-sm";
+
+  return (
+    <Link {...props} className={mainClass + " " + props?.className}></Link>
+  );
+};
+
+export default CustomLink;

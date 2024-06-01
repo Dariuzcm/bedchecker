@@ -1,9 +1,11 @@
-import { Avatar, Button, Card, CardBody } from "@nextui-org/react";
 import { useStore } from "../store/store";
 import { CameraIcon } from "../icons/CameraIcon";
 import SelfEditInput from "../components/SelfEditInput";
 import { updateUser } from "../api/apiHandler";
 import { useNavigate } from "react-router-dom";
+import { Card, CardContent } from "@/shadcdn/ui/card";
+import { Avatar } from "@radix-ui/react-avatar";
+import { Button } from "@/shadcdn/ui/button";
 
 function Profile() {
   const { user, setUser } = useStore((state) => ({
@@ -24,18 +26,17 @@ function Profile() {
     <>
       <section>
         <Card className="h-[80vh] overflow-x-visible">
-          <CardBody>
+          <CardContent>
             <div className="flex flex-col justify-center content-center items-center w-full pt-6 gap-4">
               <div className="w-fit">
                 <Avatar
                   className="w-24 h-24 border-1 border-solid border-x-zinc-500"
-                  src={user.photo || "/avatarEmpty.svg"}
+                  //src={user.photo || "/avatarEmpty.svg"}
                 />
                 <Button
-                  radius="full"
+                  //radius="full"
                   className="text-white relative -right-16 -top-8"
                   color="success"
-                  isIconOnly
                   onClick={() => navigation('/profile/imgSelector')}
                 >
                   <CameraIcon />
@@ -68,7 +69,6 @@ function Profile() {
 
               <Button
                 className="shadow-lg text-xl mt-[20%]"
-                fullWidth
                 size="lg"
                 color="primary"
                 onClick={handleOnSave}
@@ -77,7 +77,6 @@ function Profile() {
               </Button>
               <Button
                 className="shadow-lg text-xl"
-                fullWidth
                 size="lg"
                 color="danger"
                 onClick={handleOnCancel}
@@ -85,7 +84,7 @@ function Profile() {
                 Cancelar
               </Button>
             </div>
-          </CardBody>
+          </CardContent>
         </Card>
       </section>
     </>

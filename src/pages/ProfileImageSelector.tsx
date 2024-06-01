@@ -1,5 +1,3 @@
-import { Button, Card, CardBody, Slider } from "@nextui-org/react";
-
 import { FunctionComponent, useEffect, useRef, useState } from "react";
 
 import AvatarEditor from "react-avatar-editor";
@@ -13,6 +11,9 @@ import MaleAvatar from "@/assets/male_avatar.webp";
 import { deletePhoto, updatePhoto } from "@/api/apiHandler";
 import { useStore } from "@/store/store";
 import { User } from "@/types/userTypes";
+import { Card, CardContent } from "@/shadcdn/ui/card";
+import { Button } from "@/shadcdn/ui/button";
+import { Slider } from "@radix-ui/react-slider";
 
 interface ProfileImageSelectorProps {}
 
@@ -103,7 +104,7 @@ const ProfileImageSelector: FunctionComponent<
     <>
       <section>
         <Card className="h-[80vh] overflow-x-visible">
-          <CardBody>
+          <CardContent>
             <div className="flex flex-col justify-center content-center items-center w-full pt-6 gap-4 px-3">
               <AvatarEditor
                 ref={setEditorRef}
@@ -118,31 +119,26 @@ const ProfileImageSelector: FunctionComponent<
               />
               <Slider
                 color="foreground"
-                size="sm"
-                maxValue={2}
-                minValue={0}
                 step={0.1}
-                defaultValue={Scale}
-                label="Escala"
-                onChange={(value) => setScale(value as number)}
+                min={0}
+                max={1}
+                value={[Scale]}
+                onValueChange={(value) => setScale(value[0])}
               />
               <div className="flex w-full justify-between px-10">
                 <Button
-                  isIconOnly
                   onClick={handleTakeImage}
                   className="bg-keppel-600 shadow-lg"
                 >
                   <CameraUp className="text-white scale-150" />
                 </Button>
                 <Button
-                  isIconOnly
                   onClick={handleSearchImage}
                   className="bg-palatinate_blue-500 shadow-lg"
                 >
                   <CameraSearch className="text-white scale-150" />
                 </Button>
                 <Button
-                  isIconOnly
                   onClick={handleDeleteImage}
                   className="bg-crayola-500 shadow-lg"
                 >
@@ -151,7 +147,6 @@ const ProfileImageSelector: FunctionComponent<
               </div>
               <Button
                 className="shadow-lg text-xl mt-[20%]"
-                fullWidth
                 size="lg"
                 color="primary"
                 onClick={handleOnSave}
@@ -160,7 +155,6 @@ const ProfileImageSelector: FunctionComponent<
               </Button>
               <Button
                 className="shadow-lg text-xl"
-                fullWidth
                 size="lg"
                 color="danger"
                 onClick={handleOnCancel}
@@ -168,7 +162,7 @@ const ProfileImageSelector: FunctionComponent<
                 Cancelar
               </Button>
             </div>
-          </CardBody>
+          </CardContent>
         </Card>
       </section>
     </>

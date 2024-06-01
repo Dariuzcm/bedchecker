@@ -1,11 +1,15 @@
 
 import { StateCreator } from "zustand";
-import { Bed, Movement, MovementDataStore, MovementStoreType, Service } from "../types/movementStore.type";
+import { MovementDataStore, MovementStoreType } from "../types/movementStore.type";
+import { Bed, Movement, Service, Status } from "@/types/movementTypes";
 
 const initialState: MovementDataStore = {
   movements: [],
   services: [],
-  beds: []
+  beds: [],
+  movement: {
+    status: Status.PREPARE
+  }
 };
 export const movementStore: StateCreator<MovementStoreType> = (
   set,
@@ -29,10 +33,11 @@ export const movementStore: StateCreator<MovementStoreType> = (
       ...service,
     }
   })),
-  setbed: (bed: Partial<Bed>) => set((state) => ({
+  setBed: (bed: Partial<Bed>) => set((state) => ({
     bed: {
       ...state.bed,
       ...bed,
     }
   })),
+  resetMovement: () => set({ movement: initialState.movement})
 });

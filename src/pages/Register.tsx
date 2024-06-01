@@ -1,18 +1,13 @@
-import {
-  Button,
-  Card,
-  CardBody,
-  CardFooter,
-  CardHeader,
-  Divider,
-} from "@nextui-org/react";
-import { CustomInput } from "../components/CustomInput";
+import CustomInput from "../components/CustomInput";
 import { CloseIcon } from "../icons/Close";
 import { useNavigate } from "react-router-dom";
 import { ChangeEvent, useState } from "react";
 import type { Token, User } from "../types/userTypes";
 import { createToken, registration } from "../api/apiHandler";
 import { useStore } from "../store/store";
+import { Card, CardContent, CardFooter, CardHeader } from "@/shadcdn/ui/card";
+import { Button } from "@/shadcdn/ui/button";
+import Divider from "@/components/Divider";
 
 type RegistryType = Pick<
   User,
@@ -24,15 +19,16 @@ type RegistryType = Pick<
 
 export function Register() {
   const navigation = useNavigate();
-  const { setUser } = useStore((state) => ({ setUser: state.setUser }))
-  const [Loading, setLoading] = useState(false);
+  const { setUser } = useStore((state) => ({ setUser: state.setUser }));
+  // eslint-disable-next-line @typescript-eslint/no-unused-vars
+  const [_Loading, setLoading] = useState(false);
   const [registryValues, setRegistryValues] = useState<RegistryType>({
     confirmPassword: "",
     password: "",
     email: "",
     name: "",
     photo: "",
-    employeeNumber: ""
+    employeeNumber: "",
   });
 
   const handleOnChangeValue = (e: ChangeEvent<HTMLInputElement>) => {
@@ -48,16 +44,14 @@ export function Register() {
 
     switch (input) {
       case "name":
-        if (registryValues.name.length < 4 )
+        if (registryValues.name.length < 4)
           return "Nombre invalido, tiene que ser mayor a 3 caracteres";
         break;
       case "photo":
         break;
       case "email":
         // eslint-disable-next-line no-case-declarations
-        if (
-          !regex.test(registryValues.email))
-          return "Email no valido";
+        if (!regex.test(registryValues.email)) return "Email no valido";
         break;
       case "employeeNumber":
         if (Number.isNaN(Number(registryValues.employeeNumber)))
@@ -93,39 +87,41 @@ export function Register() {
   };
 
   const handleOnClick = () => {
-    registration(registryValues, setLoading).then((data: {user: User, token: Token}) => {
-      const { user, token } = data
-      const newUser = {
-        ...user,
-        token
+    registration(registryValues, setLoading).then(
+      (data: { user: User; token: Token }) => {
+        const { user, token } = data;
+        const newUser = {
+          ...user,
+          token,
+        };
+        setUser({
+          ...newUser,
+        });
+        createToken(newUser);
       }
-      setUser({
-        ...newUser
-      })
-      createToken(newUser)
-    })
-  }
+    );
+  };
   return (
     <>
       <section className="mx-auto h-full content-center">
         <Card className="max-w-[400px]">
-          <CardHeader className="flex gap-3 text-center justify-center">
+          <CardHeader className="text-center justify-center">
             <div className="flex flex-col mx-auto">
               <p className="text-md font-semibold">Registro</p>
             </div>
-            <Button
-              className="absolute right-3"
-              radius="full"
-              size="sm"
-              isIconOnly
-              onClick={() => navigation("/login")}
-              color="danger"
-            >
-              <CloseIcon className="size-5" />
-            </Button>
+            <div className="self-end fixed">
+              <Button
+                className="rounded-full size-10"
+                size="sm"
+                onClick={() => navigation("/login")}
+                variant="destructive"
+              >
+                <CloseIcon className="size-5" />
+              </Button>
+            </div>
           </CardHeader>
           <Divider />
-          <CardBody>
+          <CardContent>
             <div className="flex flex-col gap-3 pt-0 ">
               <CustomInput
                 onChange={handleOnChangeValue}
@@ -133,16 +129,16 @@ export function Register() {
                 value={registryValues.name}
                 type="text"
                 label="Nombre"
-                isInvalid={!!validateInputs("name") as boolean}
-                errorMessage={validateInputs("name")}
+                // isInvalid={!!validateInputs("name") as boolean}
+                // errorMessage={validateInputs("name")}
                 placeholder="Nombre completo"
                 required
               />
               <CustomInput
                 onChange={handleOnChangeValue}
                 name="employeeNumber"
-                isInvalid={!!validateInputs("employeeNumber") as boolean}
-                errorMessage={validateInputs("employeeNumber")}
+                // isInvalid={!!validateInputs("employeeNumber") as boolean}
+                // errorMessage={validateInputs("employeeNumber")}
                 value={registryValues.employeeNumber?.toString()}
                 type="text"
                 label="Numero de empleado"
@@ -152,8 +148,8 @@ export function Register() {
               <CustomInput
                 onChange={handleOnChangeValue}
                 name="email"
-                isInvalid={!!validateInputs("email") as boolean}
-                errorMessage={validateInputs("email")}
+                // isInvalid={!!validateInputs("email") as boolean}
+                // errorMessage={validateInputs("email")}
                 value={registryValues.email}
                 type="email"
                 label="Email"
@@ -163,34 +159,36 @@ export function Register() {
               <CustomInput
                 onChange={handleOnChangeValue}
                 name="password"
-                isInvalid={!!validateInputs("password") as boolean}
-                errorMessage={validateInputs("password")}
+                // isInvalid={!!validateInputs("password") as boolean}
+                // errorMessage={validateInputs("password")}
+                label="Contraseña"
+                placeholder="Contraseña"
                 value={registryValues.password}
                 type="password"
-                label="Contraseña"
                 required
               />
               <CustomInput
                 onChange={handleOnChangeValue}
                 name="confirmPassword"
-                isInvalid={!!validateInputs("confirmPassword") as boolean}
-                errorMessage={validateInputs("confirmPassword")}
+                // isInvalid={!!validateInputs("confirmPassword") as boolean}
+                // onError={validateInputs("confirmPassword")}
+                label="Confirmar Contraseña"
+                placeholder="Confirmar Contraseña"
                 value={registryValues.confirmPassword}
                 type="password"
-                label="Confirmar Contraseña"
                 required
               />
             </div>
-          </CardBody>
+          </CardContent>
           <Divider />
           <CardFooter>
             <div className="flex flex-col gap-4 w-full px-5">
               <Button
-                isLoading={Loading}
+                // isLoading={Loading}
                 className={validateAll() ? "opacity-50" : ""}
                 onClick={handleOnClick}
-                disabled={validateAll()}
-                color="secondary"
+                // disabled={validateAll()}
+                variant="secondary"
               >
                 Registrar
               </Button>

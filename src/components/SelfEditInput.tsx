@@ -2,7 +2,7 @@ import { ChangeEvent, FunctionComponent, useState } from "react";
 import { CloseIcon } from "../icons/Close";
 import AcceptIcon from "../icons/AcceptIcon";
 import EditIcon from "../icons/Editicon";
-import { Button } from "@nextui-org/react";
+import { Button } from "@/shadcdn/ui/button";
 
 type SelfEditInputProps<T> = {
   object: T
@@ -61,8 +61,6 @@ const SelfEditInput: FunctionComponent<SelfEditInputProps<any>> = (props) => {
               onClick={resetEdditing}
               className="text-success"
               variant="ghost"
-              isIconOnly
-              radius="full"
               size="sm"
             >
               <AcceptIcon />
@@ -71,8 +69,6 @@ const SelfEditInput: FunctionComponent<SelfEditInputProps<any>> = (props) => {
               onClick={() => restore(ObjKey)}
               variant="ghost"
               className="text-danger"
-              isIconOnly
-              radius="full"
               size="sm"
             >
               <CloseIcon />
@@ -86,8 +82,6 @@ const SelfEditInput: FunctionComponent<SelfEditInputProps<any>> = (props) => {
             </h2>
             <Button
               className="text-secondary"
-              variant="light"
-              isIconOnly
               onClick={() => handleOnEdit()}
             >
               <EditIcon className="size-8" />

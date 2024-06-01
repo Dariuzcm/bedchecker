@@ -1,15 +1,15 @@
-
 import { ChangeEvent, MouseEvent, useState, useRef } from "react";
-import { 
-  //capacitorLoginAction, 
+import {
+  // capacitorLoginAction,
   loginAction,
 } from "../api/apiHandler";
 import { useStore } from "../store/store";
 import { useNavigate } from "react-router-dom";
-import { Link } from "../components/Link";
-import { CustomInput } from "../components/CustomInput";
-import { Button, Card, CardBody, CardFooter, CardHeader, Divider } from "@nextui-org/react";
-
+import CustomInput from "../components/CustomInput";
+import { Card, CardContent, CardFooter, CardHeader } from "@/shadcdn/ui/card";
+import { Button } from "@/shadcdn/ui/button";
+import Divider from "@/components/Divider";
+import CustomLink from "@/components/Link";
 
 export function Login() {
   const [formValues, setFormValues] = useState({
@@ -17,33 +17,30 @@ export function Login() {
     password: "",
   });
   const { setUser } = useStore((state) => ({setUser: state.setUser}));
-  
-  const [Error, setError] = useState<string>('');
+
+  const [Error, setError] = useState<string>("");
   const [loading, setLoading] = useState(false);
 
-  const navigation = useNavigate()
+  const navigation = useNavigate();
   const handleOnSubmit = async (e: MouseEvent<HTMLButtonElement>) => {
-
-    loginAction(formValues.email, formValues.password, setLoading).then(
-      (data) => {
+    loginAction(formValues.email, formValues.password, setLoading)
+      .then((data) => {
         setUser({
           ...data.user,
           token: data.token,
         });
         navigation('/home')
-      }
-    ).catch( error => {
-      setError(error.message)
-      if(divRef.current) {
-        divRef.current.innerHTML = error + `<p>${JSON.stringify(error)}</p>`
-      }
-    })
-    
-    
-    e.preventDefault()
+      })
+      .catch((error) => {
+        setError(error.message);
+        if (divRef.current) {
+          divRef.current.innerHTML = error + `<p>${JSON.stringify(error)}</p>`;
+        }
+      });
+    e.preventDefault();
   };
 
-  const divRef = useRef<HTMLDivElement>(null)
+  const divRef = useRef<HTMLDivElement>(null);
 
   const handleOnChange = (e: ChangeEvent<HTMLInputElement>) => {
     const { name, value } = e.target;
@@ -58,14 +55,14 @@ export function Login() {
       <Card className="max-w-[400px] mx-auto">
         <CardHeader className="flex gap-3 text-center">
           <div className="flex flex-col mx-auto">
-            <p className="text-md font-semibold">Ingresar a Cuenta</p>
+            <p className="text-2xl font-semibold">Ingresar a Cuenta</p>
           </div>
         </CardHeader>
         <Divider />
-        <CardBody>
+        <CardContent>
           <div className="flex flex-col gap-3 pt-0 first:items-end">
             <div className="mb-6">
-              <Link href="/register">Crear Cuenta</Link>
+              <CustomLink to="/register">Crear Cuenta</CustomLink>
             </div>
             <CustomInput
               name="email"
@@ -84,29 +81,29 @@ export function Login() {
               defaultValue=""
               value={formValues.password ? formValues.password : ""}
               type="password"
-              label="Contraseña"
               placeholder="Contraseña"
               disabled={loading}
               required
             />
             <div className="w-full flex justify-center items-center pt-6">
-              <Link>Reestablecer Contraseña</Link>
+              <CustomLink to="#">Reestablecer Contraseña</CustomLink>
             </div>
           </div>
-        </CardBody>
+        </CardContent>
         <Divider />
         <CardFooter>
           <div className="flex flex-col gap-4 w-full px-5">
             <Button
-              className={`bg-primary text-white ${
+              size={"xl"}
+              className={`text-white font-normal w-full mt-4 ${
                 (formValues.email.length === 0 ||
-                formValues.password.length === 0) && "opacity-35"
+                  formValues.password.length === 0) &&
+                "opacity-35"
               }`}
               disabled={
                 formValues.email.length === 0 ||
                 formValues.password.length === 0
               }
-              isLoading={loading}
               onClick={handleOnSubmit}
             >
               Login
@@ -114,10 +111,12 @@ export function Login() {
           </div>
         </CardFooter>
       </Card>
-      {Error && <div 
-        className="w-auto border-solid border-crayola-400 bg-crayola-800 border-small rounded-sm m-3 p-3" 
-        ref={divRef} 
-      />}
+      {Error && (
+        <div
+          className="w-auto border-solid border-crayola-400 bg-crayola-800 border-small rounded-sm m-3 p-3"
+          ref={divRef}
+        />
+      )}
     </section>
   );
 }

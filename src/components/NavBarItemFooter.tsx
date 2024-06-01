@@ -1,4 +1,3 @@
-import { Tooltip } from "@nextui-org/react";
 import { useRef } from "react";
 import { Link, useLocation } from "react-router-dom";
 
@@ -10,7 +9,6 @@ export interface NavBarItemFooterType {
 }
 export function NavBarItemFooter({
   url,
-  tooltip,
   children,
   isDisabled,
 }: NavBarItemFooterType) {
@@ -20,7 +18,6 @@ export function NavBarItemFooter({
 
 
   return (
-    <Tooltip content={tooltip}>
       <Link
         ref={linkRef}
         className={`flex flex-col rounded-full p-2 transition-all ease-out duration-500 text-${location.pathname === url ? 'primary scale-125': 'black'}`}
@@ -29,6 +26,5 @@ export function NavBarItemFooter({
       >
         {children}
       </Link>
-    </Tooltip>
   );
 }

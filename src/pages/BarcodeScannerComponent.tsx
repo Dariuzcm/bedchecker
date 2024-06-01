@@ -3,14 +3,21 @@ import {
   BarcodeScanner,
   ScanOptions,
 } from "@capacitor-community/barcode-scanner";
-import { Button } from "@nextui-org/react";
 import { useNavigate } from "react-router-dom";
+import { useStore } from "@/store/store";
+import { Bed, Service, Status } from "@/types/movementTypes";
+import { Button } from "@/shadcdn/ui/button";
 
 const BarcodeScannerComponent = () => {
-  const [scannedContent, setScannedContent] = useState("");
+  const { setBed, setService, setMovement, movement } = useStore((state) => ({
+    setBed: state.setBed,
+    setService: state.setService,
+    setMovement: state.setMovement,
+    movement: state.movement,
+  }));
   const [isScanning, setisScanning] = useState(true);
 
-  const navigation = useNavigate()
+  const navigation = useNavigate();
 
   const startScanner = async () => {
     try {
@@ -21,24 +28,39 @@ const BarcodeScannerComponent = () => {
       const options: ScanOptions = {
         targetedFormats: [
           "QR_CODE",
-          "EAN_13",
-          "EAN_8",
-          "UPC_A",
-          "UPC_E",
-          "CODE_39",
-          "CODE_93",
-          "CODE_128",
-          "ITF",
-          "CODABAR",
+          // "EAN_13",
+          // "EAN_8",
+          // "UPC_A",
+          // "UPC_E",
+          // "CODE_39",
+          // "CODE_93",
+          // "CODE_128",
+          // "ITF",
+          // "CODABAR",
         ],
         cameraDirection: "back",
       };
 
-      setisScanning(true)
-      const result = await BarcodeScanner.startScan(options)
+      setisScanning(true);
+      const result = await BarcodeScanner.startScan(options);
 
       if (result.hasContent) {
-        setScannedContent(result.content);
+        switch (movement.status) {
+          case Status.PREPARE:
+            setMovement({ begin: new Date(), status: Status.PREPARE });
+            setBed(result.content as Bed);
+            break;
+          case Status.ON_TRANSIT:
+            setMovement({ status: Status.ON_TRANSIT });
+            setService(result.content as Service);
+            break;
+          case Status.FINISH:
+            setMovement({ status: Status.FINISH });
+            setMovement({ end: new Date() });
+            break;
+          default:
+            break;
+        }
       }
     } catch (error) {
       console.error("Error al escanear código de barras:", error);
@@ -50,7 +72,6 @@ const BarcodeScannerComponent = () => {
 
   useEffect(() => {
     startScanner();
-
     return () => {
       BarcodeScanner.stopScan();
     };
@@ -58,19 +79,13 @@ const BarcodeScannerComponent = () => {
 
   function handleOnCancelScan(): void {
     BarcodeScanner.stopScan();
-    setisScanning(false)
-    navigation('/movements/create')
+    setisScanning(false);
+    navigation("/movements/create");
   }
 
   return (
     <>
       <Button onClick={startScanner}>Escanear código de barras</Button>
-      {scannedContent && (
-        <div>
-          <h2>Contenido escaneado:</h2>
-          <p>{scannedContent}</p>
-        </div>
-      )}
       {isScanning && (
         <div className="absolute z-50 bottom-9 w-[90%] text-center">
           <Button onClick={handleOnCancelScan}>Cancelar Escaneo</Button>

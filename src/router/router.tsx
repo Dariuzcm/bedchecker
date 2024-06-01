@@ -18,7 +18,7 @@ export const ReactRouter = () => (
   <div className="size-full">
   <BrowserRouter>
     <Navigation />
-    <main className="p-6 pb-8 w-full h-[85vh] overflow-auto">
+    <main className="p-6 pb-8 w-full h-[85vh] overflow-auto ">
       <Routes>
         <Route path="/" element={<Navigate to="/home" />} />
         <Route path="/home" element={<HomePage />} />

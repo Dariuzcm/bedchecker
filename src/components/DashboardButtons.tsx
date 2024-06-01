@@ -1,10 +1,15 @@
-import { Button } from "@nextui-org/react";
+import { Button } from "@/shadcdn/ui/button";
+import { Link } from "react-router-dom";
 
 function DashboardButtons() {
   return (<>
     <div className="flex flex-col w-full gap-3">
-      <Button href="/movements" color="secondary" className="shadow-xl" size={"lg"} as={'a'}>Mis Movimientos</Button>
-      <Button href="/movements/create" color="primary" className="shadow-xl" size={"lg"} as={'a'}>Crear Movimiento</Button>
+      <Link to="/movements">
+        <Button color="secondary" className="shadow-xl" size={"lg"}>Mis Movimientos</Button>
+      </Link>
+      <Link to="/movements/create">
+        <Button color="primary" className="shadow-xl" size={"lg"} >Crear Movimiento</Button>
+      </Link>
     </div>
   </> );
 }

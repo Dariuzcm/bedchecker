@@ -1,21 +1,15 @@
-import {
-  Button,
-  Card,
-  CardBody,
-  CardFooter,
-  CardHeader,
-  Divider,
-} from "@nextui-org/react";
 import { ChangeEvent, useState } from "react";
-import { CustomInput } from "../components/CustomInput";
+import CustomInput from "../components/CustomInput";
 import { useStore } from "../store/store";
-import { Link } from "../components/Link";
 import {
   createToken,
   refreshUser,
   validateVerificationToken,
 } from "../api/apiHandler";
 import { useNavigate } from "react-router-dom";
+import { Card, CardContent, CardFooter, CardHeader } from "@/shadcdn/ui/card";
+import { Button } from "@/shadcdn/ui/button";
+import CustomLink from "@/components/Link";
 
 function Validation() {
   const { user, setUser } = useStore((state) => ({
@@ -55,8 +49,8 @@ function Validation() {
           <CardHeader>
             <h1 className="text-xl mx-auto">Validación</h1>
           </CardHeader>
-          <Divider />
-          <CardBody>
+          <hr />
+          <CardContent>
             <div className="p-3 flex flex-col gap-3">
               <p className="text-sm text-zinc-500">
                 Te hemos enviado un token de validación a tu correo electrónico
@@ -67,34 +61,29 @@ function Validation() {
                 Este token es una medida de seguridad para verificar tu
                 identidad y garantizar la protección de tu cuenta.
               </p>
-              <Divider />
+              <hr />
               <CustomInput
-                label="Token de validación"
+                name="Token de validación"
                 onChange={handleOnChange}
-                classNames={{
-                  input: "mx-auto text-center",
-                }}
                 style={{
                   letterSpacing: "15px",
                 }}
                 value={ValidationNumber}
               />
-              <Link onClick={handleResendCode} className="text-end">
+              <CustomLink to="" onClick={handleResendCode} className="text-end">
                 Resend Validation token
-              </Link>
+              </CustomLink>
             </div>
-          </CardBody>
-          <Divider />
+          </CardContent>
+          <hr />
           <CardFooter>
             <Button
               className={`${
                 (ValidationNumber.length < 5 || Loading) && "opacity-50"
               }`}
-              disabled={ValidationNumber.length < 5}
-              isLoading={Loading}
+              disabled={ValidationNumber.length < 5}        
               onClick={handleOnClick}
-              color="secondary"
-              fullWidth
+              variant="secondary"
             >
               Validar token
             </Button>

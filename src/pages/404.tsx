@@ -1,11 +1,11 @@
-import { Card, CardBody } from "@nextui-org/react";
+import { Card, CardContent } from "@/shadcdn/ui/card";
 
 export function NotFound() {
   return (
     <>
       <div>
         <Card>
-          <CardBody>
+          <CardContent>
             <div className="p-5">
               <div className="text-center m-3">
                 <h1 className="font-semibold text-[30px] text-crayola">Error 404</h1>
@@ -31,7 +31,7 @@ export function NotFound() {
               </p>
               <p>Gracias por tu comprensión y disculpa las molestias.</p>
             </div>
-          </CardBody>
+          </CardContent>
         </Card>
       </div>
     </>
