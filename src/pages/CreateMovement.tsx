@@ -1,39 +1,57 @@
+import BarcodeScannerComponent from "@/components/BarcideScannerComponent";
 import Divider from "@/components/Divider";
-import { Button } from "@/shadcdn/ui/button";
-import { Card, CardContent, CardFooter, CardHeader } from "@/shadcdn/ui/card";
+import { Card, CardContent, CardHeader } from "@/shadcdn/ui/card";
 import { Textarea } from "@/shadcdn/ui/textarea";
 import { useStore } from "@/store/store";
+import { Bed, Service, Status } from "@/types/movementTypes";
 import { ChangeEvent, FunctionComponent, useState } from "react";
-import { useNavigate } from "react-router-dom";
 
 interface CreateMovementProps {}
 
 const CreateMovement: FunctionComponent<CreateMovementProps> = () => {
-  const { setMovement, user } = useStore((state) => ({
-    setMovement: state.setMovement,
-    ResetMovement: state.resetMovement,
-    user: state.user,
-  }));
+  const { setMovement, setBed, setService, user, movement } = useStore(
+    (state) => ({
+      setMovement: state.setMovement,
+      movement: state.movement,
+      ResetMovement: state.resetMovement,
+      setService: state.setService,
+      setBed: state.setBed,
+      user: state.user,
+    })
+  );
 
-  const navigation = useNavigate();
   const [Notes, setNotes] = useState("");
-
-  function handleOnStartScan(): void {
-    setMovement({
-      notes: Notes,
-    });
-    navigation("/movements/scanner");
-  }
 
   function handleOnChangeNotes(e: ChangeEvent<HTMLTextAreaElement>): void {
     const { value } = e.target;
     setNotes(value);
   }
 
+  function handleOnStartScan(content: string) {
+    const jsonResponse = JSON.parse(content);
+    console.log(jsonResponse)
+    switch (movement.status) {
+      case Status.PREPARE:
+        setMovement({ begin: new Date(), status: Status.PREPARE, notes: Notes });
+        setBed(jsonResponse as Bed);
+        break;
+      case Status.ON_TRANSIT:
+        setMovement({ status: Status.ON_TRANSIT });
+        setService(jsonResponse as Service);
+        break;
+      case Status.FINISH:
+        setMovement({ status: Status.FINISH });
+        setMovement({ end: new Date() });
+        break;
+      default:
+        break;
+    }
+  }
+
   return (
     <>
       <section>
-        <Card className="h-[80vh] overflow-x-visible">
+        <Card className="h-auto overflow-x-visible">
           <CardHeader>
             <h2 className="text-center w-full font-semibold text-2xl">
               Comenzar movimiento
@@ -57,12 +75,12 @@ const CreateMovement: FunctionComponent<CreateMovementProps> = () => {
                 onChange={handleOnChangeNotes}
                 placeholder="(Opcional) Agrega algunas notas..."
               />
-              <Button onClick={handleOnStartScan} color="primary" size="lg">
-                Escanear habitación
-              </Button>
+              <BarcodeScannerComponent
+                onScanData={handleOnStartScan}
+                title="Escanear habitación"
+              />
             </div>
           </CardContent>
-          <CardFooter></CardFooter>
         </Card>
       </section>
     </>

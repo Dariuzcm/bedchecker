@@ -55,11 +55,6 @@ export function Navigation() {
     });
   };
 
-  const handleClose = () => {
-    console.log("closing");
-    setIsMenuOpen(false);
-  };
-
   const menuChildren = (items: NavItemType[]) => {
     const childrens: React.ReactNode[] = [];
     for (const item of items) {
@@ -72,7 +67,7 @@ export function Navigation() {
             collapsible
             className="w-full"
           >
-            <AccordionItem value="item-1">
+            <AccordionItem value={`accordion-${item.name}-${index}`}>
               <AccordionTrigger>{item.name}</AccordionTrigger>
               <AccordionContent>{menuChildren(item.childs)}</AccordionContent>
             </AccordionItem>
@@ -80,8 +75,8 @@ export function Navigation() {
         );
       } else
         childrens.push(
-          <li id="li-inicio">
-            <Link to={item.url!} onClick={handleClose}>
+          <li id={`li-${item.name}-${index}`}>
+            <Link to={item.url!} onClick={handleOnClickMenu}>
               {item.name}
             </Link>
           </li>
@@ -93,6 +88,7 @@ export function Navigation() {
   function handleOnClickMenu(): void {
     const { current } = dialogRef;
     if (current) {
+      console.log( current.dataset)
       setTimeout(() => {
         if (!isMenuOpen) {
           current.classList.remove("dialog-inactive");
@@ -112,12 +108,12 @@ export function Navigation() {
     }
   }
 
-  const dialogRef = useRef<HTMLDialogElement>(null);
+  const dialogRef = useRef<HTMLDivElement>(null);
 
-  return (
+  return (<>
     <header>
       <nav className={`grid grid-flow-col h-14 w-full bg-white z-[9999]`}>
-        <div className={`flex justify-between items-center`}>
+        <div data-open={isMenuOpen} className={`flex justify-between items-center`}>
           <Button
             disabled={!user.token}
             variant={"ghost"}
@@ -134,11 +130,13 @@ export function Navigation() {
           <AvatarSettings />
         </div>
       </nav>
-      <dialog
+
+    </header>
+      { <div
         ref={dialogRef}
+        data-open={isMenuOpen}
         id="menu-dialog"
-        className="bg-white/95 w-full h-full fixed z-[99999]"
-        open={isMenuOpen}
+        className="bg-white/95 w-full h-full fixed z-[99999] dialog"
       >
         <ul
           id="nav-min-buttons"
@@ -156,7 +154,8 @@ export function Navigation() {
             </Button>
           </li>
         </ul>
-      </dialog>
-    </header>
+      </div>
+    }
+    </>
   );
 }
