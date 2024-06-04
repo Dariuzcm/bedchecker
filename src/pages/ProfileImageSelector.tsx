@@ -13,7 +13,8 @@ import { useStore } from "@/store/store";
 import { User } from "@/types/userTypes";
 import { Card, CardContent } from "@/shadcdn/ui/card";
 import { Button } from "@/shadcdn/ui/button";
-import { Slider } from "@radix-ui/react-slider";
+import { Slider } from "@/shadcdn/ui/slider";
+import { useToast } from "@/shadcdn/ui/use-toast";
 
 interface ProfileImageSelectorProps {}
 
@@ -24,6 +25,7 @@ const ProfileImageSelector: FunctionComponent<
     user: state.user,
     setUser: state.setUser,
   }));
+  const { toast } = useToast()
 
   const [Scale, setScale] = useState(1);
   const [Image, setImage] = useState(user.photo || MaleAvatar);
@@ -36,6 +38,7 @@ const ProfileImageSelector: FunctionComponent<
         setUser({
           photo: undefined,
         });
+    
       });
       return;
     }
@@ -47,6 +50,10 @@ const ProfileImageSelector: FunctionComponent<
           updatePhoto(user, blob).then(({ photo }: User) => {
             setUser({
               photo
+            })
+            toast({
+              title: "Actualizando: Avatar de usuario",
+              description: `Usuario actualizado: ${Date.now()}`,
             })
           })
         }
@@ -98,7 +105,7 @@ const ProfileImageSelector: FunctionComponent<
   }, []);
 
   // eslint-disable-next-line @typescript-eslint/no-explicit-any
-  const setEditorRef = useRef<any>(null);
+  const setEditorRef = useRef<AvatarEditor>(null);
 
   return (
     <>
@@ -115,48 +122,50 @@ const ProfileImageSelector: FunctionComponent<
                 border={50}
                 scale={Scale}
                 rotate={0}
-                borderRadius={150}
+                borderRadius={500}
               />
               <Slider
-                color="foreground"
                 step={0.1}
                 min={0}
-                max={1}
+                max={2}
                 value={[Scale]}
                 onValueChange={(value) => setScale(value[0])}
               />
               <div className="flex w-full justify-between px-10">
                 <Button
                   onClick={handleTakeImage}
-                  className="bg-keppel-600 shadow-lg"
+                  className="bg-success-600 shadow-lg"
+                  size={'icon'}
                 >
                   <CameraUp className="text-white scale-150" />
                 </Button>
                 <Button
                   onClick={handleSearchImage}
-                  className="bg-palatinate_blue-500 shadow-lg"
+                  size={'icon'}
+                  className="bg-primary-500 shadow-lg"
                 >
                   <CameraSearch className="text-white scale-150" />
                 </Button>
                 <Button
                   onClick={handleDeleteImage}
-                  className="bg-crayola-500 shadow-lg"
+                  size={'icon'}
+                  className="bg-danger-500 shadow-lg"
                 >
                   <CameraDelete className="text-white scale-150" />
                 </Button>
               </div>
               <Button
-                className="shadow-lg text-xl mt-[20%]"
+                className="shadow-lg text-xl mt-[20%] w-full"
                 size="lg"
-                color="primary"
+                variant="default"
                 onClick={handleOnSave}
               >
                 Guardar
               </Button>
               <Button
-                className="shadow-lg text-xl"
+                className="shadow-lg text-xl w-full"
                 size="lg"
-                color="danger"
+                variant="destructive"
                 onClick={handleOnCancel}
               >
                 Cancelar

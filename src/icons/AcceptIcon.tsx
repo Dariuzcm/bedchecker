@@ -4,20 +4,19 @@ const AcceptIcon: FunctionComponent<SVGProps<SVGSVGElement>> = (props) => {
   return (
     <svg
       xmlns="http://www.w3.org/2000/svg"
-      width="32"
-      height="32"
-      viewBox="0 0 48 48"
-      {...props}
+      width="24"
+      height="24"
+      viewBox="0 0 24 24"
+      fill="none"
+      stroke="currentColor"
+      strokeWidth="2"
+      strokeLinecap="round"
+      strokeLinejoin="round"
+      className="icon icon-tabler icons-tabler-outline icon-tabler-check"
+      {...props} 
     >
-      <path
-        fill="none"
-        stroke="currentColor"
-        stroke-linecap="round"
-        stroke-linejoin="round"
-        stroke-width="4"
-        d="m4 24l5-5l10 10L39 9l5 5l-25 25z"
-        clip-rule="evenodd"
-      />
+      <path stroke="none" d="M0 0h24v24H0z" fill="none" />
+      <path d="M5 12l5 5l10 -10" />
     </svg>
   );
 };

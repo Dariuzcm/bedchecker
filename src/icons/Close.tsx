@@ -5,8 +5,8 @@ export function CloseIcon(props: SVGProps<SVGSVGElement>) {
     <svg
       xmlns="http://www.w3.org/2000/svg"
       className="icon icon-tabler icon-tabler-x"
-      width="72"
-      height="72"
+      width="44"
+      height="44"
       viewBox="0 0 24 24"
       strokeWidth="1.5"
       stroke="currentColor"

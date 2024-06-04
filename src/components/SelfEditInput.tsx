@@ -61,17 +61,17 @@ const SelfEditInput: FunctionComponent<SelfEditInputProps<any>> = (props) => {
               onClick={resetEdditing}
               className="text-success"
               variant="ghost"
-              size="sm"
+              size="icon"
             >
-              <AcceptIcon />
+              <AcceptIcon className="scale-150"/>
             </Button>
             <Button
               onClick={() => restore(ObjKey)}
               variant="ghost"
               className="text-danger"
-              size="sm"
+              size="icon"
             >
-              <CloseIcon />
+              <CloseIcon  className="scale-90"/>
             </Button>
           </>
         ) : (
@@ -82,6 +82,7 @@ const SelfEditInput: FunctionComponent<SelfEditInputProps<any>> = (props) => {
             </h2>
             <Button
               className="text-secondary"
+              variant={'ghost'}
               onClick={() => handleOnEdit()}
             >
               <EditIcon className="size-8" />

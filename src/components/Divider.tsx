@@ -4,8 +4,8 @@ interface DividerProps {}
 
 const Divider: FunctionComponent<
   HTMLAttributes<HTMLHRElement> & DividerProps
-> = () => {
-  return <hr className="text-gray-200 mb-4" />;
+> = (props) => {
+  return <hr {...props} className={`text-gray-200 mb-4 w-full ${props.className}`} />;
 };
 
 export default Divider;

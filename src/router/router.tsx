@@ -12,6 +12,7 @@ import ProfileImageSelector from "@/pages/ProfileImageSelector";
 import CreateMovement from "@/pages/CreateMovement";
 import { lazy } from "react";
 import MovementList from "@/pages/MovementList";
+import { Toaster } from "@/shadcdn/ui/toaster";
 
 const BarcodeScannerComponent = lazy(() => import('@/pages/BarcodeScannerComponent'));
 export const ReactRouter = () => (
@@ -39,6 +40,7 @@ export const ReactRouter = () => (
         <Route path="*" element={<NotFound />} />
         
       </Routes>
+      <Toaster />
     </main>
     <FooterNavBar />
   </BrowserRouter>

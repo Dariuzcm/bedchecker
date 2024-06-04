@@ -1,4 +1,4 @@
-import { ChangeEvent, MouseEvent, useState, useRef } from "react";
+import { ChangeEvent, useState, useRef } from "react";
 import {
   // capacitorLoginAction,
   loginAction,
@@ -22,7 +22,7 @@ export function Login() {
   const [loading, setLoading] = useState(false);
 
   const navigation = useNavigate();
-  const handleOnSubmit = async (e: MouseEvent<HTMLButtonElement>) => {
+  const handleOnSubmit = async () => {
     loginAction(formValues.email, formValues.password, setLoading)
       .then((data) => {
         setUser({
@@ -37,7 +37,6 @@ export function Login() {
           divRef.current.innerHTML = error + `<p>${JSON.stringify(error)}</p>`;
         }
       });
-    e.preventDefault();
   };
 
   const divRef = useRef<HTMLDivElement>(null);

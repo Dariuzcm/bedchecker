@@ -1,0 +1,13 @@
+dialog {
+  top: 3.5rem;
+  opacity: 0.9;
+  transform: translate(-100%, 0);
+  transition: all 300ms ease-in-out;
+}
+
+.dialog-active {
+  transform: translate(0, 0);
+}
+.dialog-inactive {
+  transform: translate(-100%, 0);
+}

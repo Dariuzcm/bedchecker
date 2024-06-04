@@ -8,7 +8,7 @@ export function NotFound() {
           <CardContent>
             <div className="p-5">
               <div className="text-center m-3">
-                <h1 className="font-semibold text-[30px] text-crayola">Error 404</h1>
+                <h1 className="font-semibold text-[30px] text-danger">Error 404</h1>
                 <h1 className="font-semibold text-[25px]">Página no encontrada</h1>
               </div>
               <p>¡Hola, querido usuario!</p>
