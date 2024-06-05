@@ -1,7 +1,7 @@
 import { useStore } from "../store/store";
 import { CameraIcon } from "../icons/CameraIcon";
 import SelfEditInput from "../components/SelfEditInput";
-import { updateUser } from "../api/apiHandler";
+import { updateUser } from "../api/userServiceHandler";
 import { useNavigate } from "react-router-dom";
 import { Card, CardContent } from "@/shadcdn/ui/card";
 import { Button } from "@/shadcdn/ui/button";

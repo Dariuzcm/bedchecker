@@ -8,7 +8,7 @@ import { useNavigate } from "react-router-dom";
 import { Camera, CameraResultType, CameraSource } from "@capacitor/camera";
 
 import MaleAvatar from "@/assets/male_avatar.webp";
-import { deletePhoto, updatePhoto } from "@/api/apiHandler";
+import { deletePhoto, updatePhoto } from "@/api/userServiceHandler";
 import { useStore } from "@/store/store";
 import { User } from "@/types/userTypes";
 import { Card, CardContent } from "@/shadcdn/ui/card";

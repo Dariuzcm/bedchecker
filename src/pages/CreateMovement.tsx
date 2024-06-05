@@ -9,7 +9,7 @@ import { ChangeEvent, FunctionComponent, useState } from "react";
 interface CreateMovementProps {}
 
 const CreateMovement: FunctionComponent<CreateMovementProps> = () => {
-  const { setMovement, setBed, setService, user, movement } = useStore(
+  const { setMovement, ResetMovement, setBed, setService, user, movement } = useStore(
     (state) => ({
       setMovement: state.setMovement,
       movement: state.movement,
@@ -32,16 +32,16 @@ const CreateMovement: FunctionComponent<CreateMovementProps> = () => {
     console.log(jsonResponse)
     switch (movement.status) {
       case Status.PREPARE:
-        setMovement({ begin: new Date(), status: Status.PREPARE, notes: Notes });
+        setMovement({ begin: new Date(), status: Status.ON_TRANSIT, notes: Notes });
         setBed(jsonResponse as Bed);
         break;
       case Status.ON_TRANSIT:
-        setMovement({ status: Status.ON_TRANSIT });
+        setMovement({ status: Status.FINISH, end: new Date() });
         setService(jsonResponse as Service);
         break;
       case Status.FINISH:
-        setMovement({ status: Status.FINISH });
-        setMovement({ end: new Date() });
+        ResetMovement()
+        
         break;
       default:
         break;

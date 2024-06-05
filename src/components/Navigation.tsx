@@ -1,5 +1,5 @@
 import { useRef, useState } from "react";
-import { logoutAction } from "../api/apiHandler";
+import { logoutAction } from "../api/userServiceHandler";
 import { useStore } from "../store/store";
 import { Link } from "react-router-dom";
 import { MenuIcon } from "@/icons/MenuIcon";

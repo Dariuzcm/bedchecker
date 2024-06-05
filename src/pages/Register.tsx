@@ -3,7 +3,7 @@ import { CloseIcon } from "../icons/Close";
 import { useNavigate } from "react-router-dom";
 import { ChangeEvent, useState } from "react";
 import type { Token, User } from "../types/userTypes";
-import { createToken, registration } from "../api/apiHandler";
+import { createToken, registration } from "@/api/userServiceHandler";
 import { useStore } from "../store/store";
 import { Card, CardContent, CardFooter, CardHeader } from "@/shadcdn/ui/card";
 import { Button } from "@/shadcdn/ui/button";

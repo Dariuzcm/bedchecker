@@ -1,7 +1,7 @@
 import { useStore } from "../store/store";
 import { SettingsIcon } from "../icons/SettingsIcon";
 import { Logout } from "../icons/Logout";
-import { logoutAction } from "../api/apiHandler";
+import { logoutAction } from "../api/userServiceHandler";
 import { Link, useNavigate } from "react-router-dom";
 import User from "./User";
 import { Avatar, AvatarFallback, AvatarImage } from "@/shadcdn/ui/avatar";

@@ -5,7 +5,7 @@ import {
   createToken,
   refreshUser,
   validateVerificationToken,
-} from "../api/apiHandler";
+} from "@/api/userServiceHandler";
 import { useNavigate } from "react-router-dom";
 import { Card, CardContent, CardFooter, CardHeader } from "@/shadcdn/ui/card";
 import { Button } from "@/shadcdn/ui/button";
