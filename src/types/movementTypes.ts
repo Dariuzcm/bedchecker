@@ -1,6 +1,8 @@
 export type Movement = {
   uuid?: string
   notes?: string
+  bedId?: number
+  serviceId?: number
   bed?: Bed
   service?: Service
   begin?: Date
