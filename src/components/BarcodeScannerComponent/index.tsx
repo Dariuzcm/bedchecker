@@ -5,11 +5,12 @@ import {
 } from "@capacitor-community/barcode-scanner";
 import { useNavigate } from "react-router-dom";
 import { Button } from "@/shadcdn/ui/button";
+import { Bed, Service } from "@/types/movementTypes";
 
 interface BarcodeScannerComponentProps {
   isReady?: (isReady: boolean) => void;
   title: string
-  onScanData: (content: string) => unknown
+  onScanData: (content: Bed | Service) => unknown
 }
 
 const BarcodeScannerComponent = (props: BarcodeScannerComponentProps) => {
@@ -42,8 +43,10 @@ const BarcodeScannerComponent = (props: BarcodeScannerComponentProps) => {
       isReady && isReady(true);
       const result = await BarcodeScanner.startScan(options);
       if (result.hasContent) {
+        const parced: Bed | Service = JSON.parse(result.content)
+
         setisScanning(false)
-        onScanData && onScanData(result.content)
+        onScanData && onScanData(parced)
       }
     } catch (error) {
       console.error("Error al escanear código de barras:", error);

@@ -9,9 +9,9 @@ import Profile from "@/pages/Profile";
 import Validation from "@/pages/Validation";
 import { Navigation } from "@/components/Navigation";
 import ProfileImageSelector from "@/pages/ProfileImageSelector";
-import CreateMovement from "@/pages/CreateMovement";
 import MovementList from "@/pages/MovementList";
 import { Toaster } from "@/shadcdn/ui/toaster";
+import MovementProcess from "@/pages/MovementProcess";
 
 export const ReactRouter = () => {
 
@@ -37,7 +37,7 @@ export const ReactRouter = () => {
             </Route>
             <Route path="/movements">
               <Route path="/movements" element={<MovementList />} />
-              <Route path="/movements/create" element={<CreateMovement />} />
+              <Route path="/movements/create" element={<MovementProcess />} />
             </Route>
             <Route path="*" element={<NotFound />} />
           </Routes>
