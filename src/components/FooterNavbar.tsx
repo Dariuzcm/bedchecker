@@ -5,10 +5,13 @@ import { NavBarItemFooter, NavBarItemFooterType } from "./NavBarItemFooter";
 import { useLocation, useNavigate } from "react-router-dom";
 import { useStore } from "../store/store";
 import { BedIcon } from "../icons/BedIcon";
+import { refreshUser } from "@/api/userServiceHandler";
+import { useToast } from "@/shadcdn/ui/use-toast";
 
 export function FooterNavBar() {
-  const { user } = useStore(({ user }) => ({ user }));
+  const { user, restartUser } = useStore(({ user, restartUser }) => ({ user, restartUser }));
 
+  const { toast } = useToast()
   const navigation = useNavigate();
   const location = useLocation();
 
@@ -20,6 +23,17 @@ export function FooterNavBar() {
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [user]);
 
+  useEffect(() => {
+    refreshUser(user).catch((error) => {
+      toast({
+        title: "Error: Usuario",
+        description: `${error.message}`,
+        variant: 'destructive'
+      })
+      restartUser()
+    })
+  }, []);
+  
   const footBarItems: NavBarItemFooterType[] = [
     {
       url: "/list",

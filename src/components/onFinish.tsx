@@ -1,11 +1,11 @@
-import BarcodeScannerComponent from "@/components/BarcodeScannerComponent";
 import Divider from "@/components/Divider";
 import { Button } from "@/shadcdn/ui/button";
 import { Card, CardContent, CardHeader } from "@/shadcdn/ui/card";
-import { useToast } from "@/shadcdn/ui/use-toast";
 import { useStore } from "@/store/store";
-import { Bed, Service } from "@/types/movementTypes";
 import { FunctionComponent } from "react";
+import RelativeTimeComponent from "./RelativeTimeComponent";
+import { updateMovement } from "@/api/movementsServiceHandler";
+import { Status } from "@/types/movementTypes";
 
 interface OnFinishProps {}
 
@@ -14,29 +14,20 @@ const OnFinish: FunctionComponent<OnFinishProps> = () => {
     movement,
     bed,
     service,
+    user,
     setOnList,
     resetMovement,
-    cancelMovement,
   } = useStore((state) => ({
     movement: state.movement,
     bed: state.bed,
     service: state.service,
+    user: state.user,
     setOnList: state.setOnList,
     resetMovement: state.resetMovement,
-    cancelMovement: state.cancelMovement,
   }));
 
-  const { toast } = useToast()
-
-  function handleOnStartScan(content: Service | Bed) {
-    if((content as Bed)?.bedId != bed?.bedId) {
-      toast({
-        title: "Alert: Escaneando",
-        description: `Cama distinta, el moviemiento tiene que volver a la cama: ${bed?.bedCode}`,
-        variant:'destructive'
-      })
-      return 
-    }
+  function handleOnFinish() {
+    updateMovement(user.token!, { ...movement, status: Status.FINISH} )
     setOnList({
       ...movement,
       bed,
@@ -45,12 +36,6 @@ const OnFinish: FunctionComponent<OnFinishProps> = () => {
       serviceId: service?.serviceId
     })
     resetMovement()
-  }
-
-  function handleOnCancel(): void {
-    cancelMovement(movement).then(() => {
-      resetMovement();
-    });
   }
 
   return (
@@ -80,19 +65,27 @@ const OnFinish: FunctionComponent<OnFinishProps> = () => {
                 <h1>Servicio:</h1>
                 <h3 className="text-slate-400">{`(${service?.code}) ${service?.description}`}</h3>
               </div>
+              <div className="flex gap-3">
+                <h1>Fecha de Inicio:</h1>
+                <div className="text-slate-400">
+                  <RelativeTimeComponent lang="es" datetime={movement.begin}></RelativeTimeComponent>
+                </div>
+              </div>
+              <div className="flex gap-3">
+                <h1>Fecha final:</h1>
+                <div className="text-slate-400">
+                  <RelativeTimeComponent lang="es" datetime={movement.end!}></RelativeTimeComponent>
+                </div>
+              </div>
             </div>
             <Divider className="mb-24" />
             <div className="px-3 py-10 flex flex-col gap-6">
-              <BarcodeScannerComponent
-                onScanData={handleOnStartScan}
-                title="Escanear habitacion de vuelta"
-              />
               <Button
-                onClick={handleOnCancel}
-                variant={"destructive"}
+                onClick={handleOnFinish}
+                variant={"secondary"}
                 size={"lg"}
               >
-                Cancelar
+                Terminar
               </Button>
             </div>
           </CardContent>

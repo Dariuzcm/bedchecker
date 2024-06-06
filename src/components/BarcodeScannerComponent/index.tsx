@@ -10,8 +10,9 @@ import { Bed, Service } from "@/types/movementTypes";
 interface BarcodeScannerComponentProps {
   isReady?: (isReady: boolean) => void;
   title: string
-  onScanData: (content: Bed | Service) => unknown
+  onScanData: (content: ScanResponse<Service | Bed>) => void
 }
+export type ScanResponse<T> = T & { type: 'service' | 'bed' }
 
 const BarcodeScannerComponent = (props: BarcodeScannerComponentProps) => {
   const { isReady, onScanData, title } = props;
@@ -43,7 +44,7 @@ const BarcodeScannerComponent = (props: BarcodeScannerComponentProps) => {
       isReady && isReady(true);
       const result = await BarcodeScanner.startScan(options);
       if (result.hasContent) {
-        const parced: Bed | Service = JSON.parse(result.content)
+        const parced = JSON.parse(result.content)
 
         setisScanning(false)
         onScanData && onScanData(parced)
@@ -76,7 +77,7 @@ const BarcodeScannerComponent = (props: BarcodeScannerComponentProps) => {
     <>
       <Button size={'lg'} onClick={startScanner}>{title}</Button>
       {isScanning && (
-        <div className="absolute z-50 bottom-9 w-[90%] text-center">
+        <div className="absolute z-50 bottom-16 right-0 left-0 text-center">
           <Button onClick={handleOnCancelScan}>Cancelar Escaneo</Button>
         </div>
       )}

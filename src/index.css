@@ -4,7 +4,7 @@
 
 @layer base {
   :root {
-    --background: linear-gradient(to bottom, var(--primary) 60%, white);
+    --background: white;
     --foreground: 224 71.4% 4.1%;
 
     --card: 0 0% 100%;
@@ -44,6 +44,6 @@
     @apply bg-background text-foreground;
   }
   main {
-    background-image: linear-gradient(to bottom ,var(--primary) 60%, white );
+    background-image: linear-gradient(to bottom ,var(--primary) 10%, white );
   }
 }

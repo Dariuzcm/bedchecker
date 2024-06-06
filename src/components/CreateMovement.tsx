@@ -1,15 +1,18 @@
-import BarcodeScannerComponent from "@/components/BarcodeScannerComponent";
+import { createMovement } from "@/api/movementsServiceHandler";
+import BarcodeScannerComponent, { ScanResponse } from "@/components/BarcodeScannerComponent";
 import Divider from "@/components/Divider";
 import { Card, CardContent, CardHeader } from "@/shadcdn/ui/card";
 import { Textarea } from "@/shadcdn/ui/textarea";
+import { useToast } from "@/shadcdn/ui/use-toast";
 import { useStore } from "@/store/store";
-import { Bed, Service, Status } from "@/types/movementTypes";
+import { Bed, Status } from "@/types/movementTypes";
 import { ChangeEvent, FunctionComponent, useState } from "react";
 
 interface CreateMovementProps {}
 
 const CreateMovement: FunctionComponent<CreateMovementProps> = () => {
-  const { setMovement, setBed, user } = useStore(
+  const { toast } = useToast()
+  const { setMovement, setBed, user, movement } = useStore(
     (state) => ({
       setMovement: state.setMovement,
       movement: state.movement,
@@ -21,16 +24,38 @@ const CreateMovement: FunctionComponent<CreateMovementProps> = () => {
     })
   );
   
-  const [Notes, setNotes] = useState("");
+  const [Notes, setNotes] = useState( movement.notes || "");
 
   function handleOnChangeNotes(e: ChangeEvent<HTMLTextAreaElement>): void {
     const { value } = e.target;
     setNotes(value);
   }
 
-  function handleOnStartScan(content: Bed | Service) {
-    setMovement({ begin: new Date(), status: Status.ON_TRANSIT, notes: Notes });
+  function handleOnStartScan(content: ScanResponse<Bed> ) {
+    if(content.type !== 'bed') {
+      toast({
+        title: "Error: Escaner",
+        description: `Tipo de escaneo no es tipo bed (Cama)`,
+        variant: "destructive",
+      });
+      return 
+    }
+
     setBed(content as Bed);
+    
+    const movem = { begin: new Date().toISOString(), status: Status.ON_TRANSIT, notes: Notes, bedId: content.bedId }
+    
+    setMovement(movem);
+    createMovement(user.token!, movem).then((mov) => {
+      setMovement(mov)
+    }).catch((err) => {
+      toast({
+        title: "Error: Creando Movimiento",
+        description: `${err.message}`,
+        variant:'destructive'
+      })
+      setMovement({ status: Status.PREPARE })
+    })
   }
 
   return (

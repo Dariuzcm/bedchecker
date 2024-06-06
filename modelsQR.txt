@@ -2,4 +2,4 @@ bed to qr
 { "type": "bed", "bedCode":1, "bedId":"X937","description": "ultrices."}
 
 Service to qr
-{ "type": "Service", "serviceId":1, "code":"X937","description": "ultrices."}
+{ "type": "Service", "serviceId":1, "code":"W5W7","description": "tellus id nunc"}

@@ -53,8 +53,4 @@ export const movementStore: StateCreator<MovementStoreType> = (
         movements: current,
       };
     }),
-  // eslint-disable-next-line @typescript-eslint/no-unused-vars
-  cancelMovement: async (_movement: Movement) => {
-
-  }
 });

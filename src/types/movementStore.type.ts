@@ -17,7 +17,6 @@ export interface MovementActionStore {
   setBed: (bed: Partial<Bed>) => void
   resetMovement: () => void
   setOnList: (movement: Movement) => void
-  cancelMovement: (movement: Movement) => Promise<void>
 }
 
 

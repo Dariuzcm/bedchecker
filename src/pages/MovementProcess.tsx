@@ -5,6 +5,8 @@ import { Status } from "@/types/movementTypes";
 import { FunctionComponent } from "react";
 import OnTransit from "../components/OnTransit";
 import OnFinish from "@/components/onFinish";
+import OnCancel from "@/pages/OnCancel";
+import OnReturning from "@/components/OnReturning";
 
 interface MovementProcessProps {}
 type StepsType = keyof typeof Status;
@@ -20,8 +22,9 @@ const MovementProcess: FunctionComponent<MovementProcessProps> = () => {
   const Steps: StepsComponentMap = {
     PREPARE: <CreateMovement />,
     ON_TRANSIT: <OnTransit />,
+    ON_RETURNING: <OnReturning />,
     FINISH: <OnFinish />,
-    CANCELED: undefined
+    CANCELED: <OnCancel />,
   };
   function handleOnReset(): void {
     resetMovement();

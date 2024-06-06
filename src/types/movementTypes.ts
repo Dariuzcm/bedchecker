@@ -5,8 +5,8 @@ export type Movement = {
   serviceId?: number
   bed?: Bed
   service?: Service
-  begin?: Date
-  end?: Date
+  begin?: string
+  end?: string
   status: keyof typeof Status
 }
 
@@ -25,6 +25,7 @@ export type Service = {
 export const enum Status {
   PREPARE = 'PREPARE',
   ON_TRANSIT = 'ON_TRANSIT',
+  ON_RETURNING = 'ON_RETURNING',
   FINISH = 'FINISH',
   CANCELED = 'CANCELED'
 }

@@ -15,7 +15,7 @@ export const loginAction = async (
     })
     .then((res) => {
       if (res.status > 299) {
-        throw Error("Something whent wrong");
+        throw Error(`Something whent wrong: ${JSON.stringify(res.data)}`);
       }
       return res;
     })
@@ -145,11 +145,11 @@ export const refreshUser = async (user: User) => {
     });
 
     if (status > 299) {
-      throw Error("Something whent wrong on create validation token");
+      throw Error(`Something whent wrong on create validation token: ${data}`);
     }
     return data;
   } catch (error) {
-    throw Error("Something whent wrong, Network Error");
+    throw Error(`Something whent wrong: \n ${error}`);
   }
 };
 
