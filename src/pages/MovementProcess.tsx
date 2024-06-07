@@ -1,5 +1,4 @@
 import CreateMovement from "@/components/CreateMovement";
-import { Button } from "@/shadcdn/ui/button";
 import { useStore } from "@/store/store";
 import { Status } from "@/types/movementTypes";
 import { FunctionComponent } from "react";
@@ -14,9 +13,8 @@ type StepsComponentMap = {
   [K in StepsType]: React.ReactNode;
 }
 const MovementProcess: FunctionComponent<MovementProcessProps> = () => {
-  const { movement, resetMovement } = useStore((state) => ({
+  const { movement } = useStore((state) => ({
     movement: state.movement,
-    resetMovement: state.resetMovement,
   }));
 
   const Steps: StepsComponentMap = {
@@ -26,15 +24,11 @@ const MovementProcess: FunctionComponent<MovementProcessProps> = () => {
     FINISH: <OnFinish />,
     CANCELED: <OnCancel />,
   };
-  function handleOnReset(): void {
-    resetMovement();
-  }
 
   return (
-    <>
-      <Button onClick={handleOnReset}>Reset</Button>
+    <div className="transition-transform">
       {Steps[movement.status]}
-    </>
+    </div>
   );
 };
 

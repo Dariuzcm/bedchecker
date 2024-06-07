@@ -7,7 +7,7 @@ export function HomePage() {
   return (
     <>
       <section>
-        <Card className="h-[80vh] overflow-x-visible">
+        <Card className="h-auto overflow-x-visible">
           <CardContent>
             <div className="flex flex-col px-0.5 py-2 gap-10">
               <GraphComponent />

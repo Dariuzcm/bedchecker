@@ -6,7 +6,6 @@ export const content = [
   './app/**/*.{ts,tsx}',
   './src/**/*.{ts,tsx}',
 ];
-export const prefix = "";
 export const theme = {
   container: {
     center: true,

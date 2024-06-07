@@ -75,7 +75,7 @@ export function Navigation() {
         );
       } else
         childrens.push(
-          <li id={`li-${item.name}-${index}`}>
+          <li id={`li-${item.name}-${index}`} key={`li-${item.name}-${index}`}>
             <Link to={item.url!} onClick={handleOnClickMenu}>
               {item.name}
             </Link>
@@ -88,7 +88,6 @@ export function Navigation() {
   function handleOnClickMenu(): void {
     const { current } = dialogRef;
     if (current) {
-      console.log( current.dataset)
       setTimeout(() => {
         if (!isMenuOpen) {
           current.classList.remove("dialog-inactive");
@@ -136,7 +135,7 @@ export function Navigation() {
         ref={dialogRef}
         data-open={isMenuOpen}
         id="menu-dialog"
-        className="bg-white/95 w-full h-full fixed z-[99999] dialog"
+        className="bg-white w-full h-full fixed z-[99999] dialog"
       >
         <ul
           id="nav-min-buttons"

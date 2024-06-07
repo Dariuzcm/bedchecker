@@ -119,3 +119,21 @@ export async function getMovements(accessToken: Token, page = 1, size = 25) {
       )}`)
   return request.data
 }
+
+export async function getWeekMovements(accessToken: Token) {
+  if (!accessToken) {
+    window.location.replace("/login");
+    throw Error("No token Provided");
+  }
+  const request = await requestHandler.get('movements/week', {
+    headers: {
+      Authorization: `${capitalize(accessToken.type)} ${accessToken.token}`,
+    },
+  });
+  if (request.status > 299)
+    throw Error(
+      `Error al intentar obtener el ultimo movimiento : ${JSON.stringify(
+        request.data
+      )}`)
+  return request.data
+}

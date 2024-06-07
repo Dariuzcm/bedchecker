@@ -10,7 +10,6 @@ function LastMovement() {
 
   function init() {
     getLastestMovement(user.token!).then((mov) => {
-      console.log(mov);
       setLastMovement(mov);
     });
   }

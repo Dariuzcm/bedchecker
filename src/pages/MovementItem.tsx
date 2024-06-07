@@ -1,24 +1,28 @@
+import Divider from "@/components/Divider";
 import RelativeTimeComponent from "@/components/RelativeTimeComponent";
 import { Button } from "@/shadcdn/ui/button";
 import { Card, CardContent, CardHeader } from "@/shadcdn/ui/card";
 import { useStore } from "@/store/store";
-import { Divider } from "@tremor/react";
-import { FunctionComponent } from "react";
+import { FunctionComponent, useEffect } from "react";
 import { useNavigate } from "react-router-dom";
 
-interface MovementItemProps {
-  
-}
+interface MovementItemProps {}
 
 const MovementItem: FunctionComponent<MovementItemProps> = () => {
-  const { movement } = useStore(({ movement }) => ({ movement }))
-  const { bed, service } = movement
+  const { movement, resetMovement } = useStore(({ movement, resetMovement }) => ({ movement, resetMovement }));
+  const { bed, service } = movement;
 
-  const navigate = useNavigate()
+  const navigate = useNavigate();
 
   function handleOnReturn() {
-    navigate('/movements')
+    navigate("/movements");
   }
+
+  useEffect(() => {
+    return () => {
+      resetMovement()
+    }
+  }, [])
 
   return (
     <>
@@ -33,7 +37,8 @@ const MovementItem: FunctionComponent<MovementItemProps> = () => {
             <Divider className="mt-0" />
             <div className="px-3 text-lg pb-9 flex flex-col gap-3">
               <div className="flex flex-col">
-                <h1>Cama:</h1> <h3 className="text-slate-400">{`(${bed?.bedCode}) ${bed?.description}`}</h3>
+                <h1>Cama:</h1>{" "}
+                <h3 className="text-slate-400">{`(${bed?.bedCode}) ${bed?.description}`}</h3>
               </div>
               <div className="flex flex-col">
                 <h1>Servicio:</h1>
@@ -41,18 +46,26 @@ const MovementItem: FunctionComponent<MovementItemProps> = () => {
               </div>
               <div className="flex flex-col">
                 <h1>Notas:</h1>
-                <h3 className="text-slate-400">{movement?.notes ? movement?.notes : 'No hay notas'  }</h3>
+                <h3 className="text-slate-400">
+                  {movement?.notes ? movement?.notes : "No hay notas"}
+                </h3>
               </div>
               <div className="flex gap-3">
                 <h1>Fecha de Inicio:</h1>
                 <div className="text-slate-400">
-                  <RelativeTimeComponent lang="es" datetime={movement.begin}></RelativeTimeComponent>
+                  <RelativeTimeComponent
+                    lang="es"
+                    datetime={movement.begin}
+                  ></RelativeTimeComponent>
                 </div>
               </div>
               <div className="flex gap-3">
                 <h1>Fecha final:</h1>
                 <div className="text-slate-400">
-                  <RelativeTimeComponent lang="es" datetime={movement.end!}></RelativeTimeComponent>
+                  <RelativeTimeComponent
+                    lang="es"
+                    datetime={movement.end!}
+                  ></RelativeTimeComponent>
                 </div>
               </div>
             </div>
@@ -71,6 +84,6 @@ const MovementItem: FunctionComponent<MovementItemProps> = () => {
       </section>
     </>
   );
-}
+};
 
 export default MovementItem;

@@ -32,11 +32,12 @@ export function FooterNavBar() {
       })
       restartUser()
     })
+  // eslint-disable-next-line react-hooks/exhaustive-deps
   }, []);
   
   const footBarItems: NavBarItemFooterType[] = [
     {
-      url: "/list",
+      url: "/movements",
       tooltip: "Mis viajes",
       children: <NotebookIcon className="size-9" />,
     },
@@ -46,7 +47,7 @@ export function FooterNavBar() {
       children: <HomeIcon className="size-9" />,
     },
     {
-      url: "/bedCapture",
+      url: "/movements/create",
       tooltip: "BedCapture",
       children: <BedIcon className="size-9" />,
     },

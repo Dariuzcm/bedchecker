@@ -20,7 +20,7 @@ export const ReactRouter = () => {
   return (
     <div className="size-full">
       <BrowserRouter>
-        <Navigation />
+        <Navigation key={'navigation'} />
         <main className="p-6 pb-8 w-full h-[85vh] overflow-auto ">
           <Routes>
             <Route path="/" element={<Navigate to="/home" />} />
