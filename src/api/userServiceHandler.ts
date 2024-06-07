@@ -1,7 +1,8 @@
 import { Token, User, UserFields } from "../types/userTypes";
 import { capitalize } from "../utils/utils";
-import requestHandler from "./requestHandler";
+import requestHandler, { baseUrl } from "./requestHandler";
 
+const photoUrl = baseUrl + 'users/photo/'
 export const loginAction = async (
   email: string,
   password: string,
@@ -153,6 +154,9 @@ export const refreshUser = async (user: User) => {
   }
 };
 
+export const getPhoto = (photoIdentifer: string) => {
+  return photoUrl + photoIdentifer
+}
 export const updateUser = async (user: User) => {
   if (!user.token) throw Error("No Token Exception");
   const accessToken = user.token;

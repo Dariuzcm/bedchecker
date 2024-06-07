@@ -1,3 +1,4 @@
+import { getPhoto } from "@/api/userServiceHandler";
 import { Avatar, AvatarImage } from "@/shadcdn/ui/avatar";
 import { FunctionComponent } from "react";
 
@@ -15,7 +16,7 @@ const User: FunctionComponent<UserProps> = (props) => {
   const { classNames } = props
   return <div className="flex flex-col justify-center items-center px-5 pb-3 gap-1">
     <Avatar className="size-14">
-      <AvatarImage src={props.src || "/avatarEmpty.svg"} />
+      <AvatarImage src={getPhoto(props.src) || "/avatarEmpty.svg"} />
     </Avatar>
     <h1 className={`font-semibold ${classNames.name}`}>{props.name}</h1>
     <h2 className="text-white-300">{props.description}</h2>

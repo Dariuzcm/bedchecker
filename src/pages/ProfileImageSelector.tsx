@@ -8,7 +8,7 @@ import { useNavigate } from "react-router-dom";
 import { Camera, CameraResultType, CameraSource } from "@capacitor/camera";
 
 import MaleAvatar from "@/assets/male_avatar.webp";
-import { deletePhoto, updatePhoto } from "@/api/userServiceHandler";
+import { deletePhoto, getPhoto, updatePhoto } from "@/api/userServiceHandler";
 import { useStore } from "@/store/store";
 import { User } from "@/types/userTypes";
 import { Card, CardContent } from "@/shadcdn/ui/card";
@@ -26,21 +26,26 @@ const ProfileImageSelector: FunctionComponent<
     user: state.user,
     setUser: state.setUser,
   }));
-  const { toast } = useToast()
+  const { toast } = useToast();
 
   const [Scale, setScale] = useState(1);
-  const [Image, setImage] = useState(user.photo || MaleAvatar);
+  const [Image, setImage] = useState(getPhoto(user.photo) || MaleAvatar);
+  const [Loading, setLoading] = useState(false);
 
   const navigation = useNavigate();
 
   const handleOnSave = () => {
+    setLoading(true);
     if (Image === MaleAvatar) {
-      deletePhoto(user).then(() => {
-        setUser({
-          photo: undefined,
+      deletePhoto(user)
+        .then(() => {
+          setUser({
+            photo: undefined,
+          });
+        })
+        .finally(() => {
+          setLoading(false);
         });
-    
-      });
       return;
     }
 
@@ -48,17 +53,21 @@ const ProfileImageSelector: FunctionComponent<
     if (current) {
       (current.getImage() as HTMLCanvasElement).toBlob((blob) => {
         if (blob) {
-          updatePhoto(user, blob).then(({ photo }: User) => {
-            setUser({
-              photo
+          updatePhoto(user, blob)
+            .then(({ photo }: User) => {
+              setUser({
+                photo,
+              });
+              toast({
+                title: "Actualizando: Avatar de usuario",
+                description: `Usuario actualizado: ${Date.now()}`,
+              });
             })
-            toast({
-              title: "Actualizando: Avatar de usuario",
-              description: `Usuario actualizado: ${Date.now()}`,
-            })
-          })
+            .finally(() => {
+              setLoading(false);
+            });
         }
-      })
+      });
     }
   };
 
@@ -116,7 +125,7 @@ const ProfileImageSelector: FunctionComponent<
             <div className="flex flex-col justify-center content-center items-center w-full pt-6 gap-4 px-3">
               <AvatarEditor
                 ref={setEditorRef}
-                crossOrigin={'*'}
+                crossOrigin={"*"}
                 image={Image}
                 width={200}
                 height={200}
@@ -136,20 +145,20 @@ const ProfileImageSelector: FunctionComponent<
                 <Button
                   onClick={handleTakeImage}
                   className="bg-success-600 shadow-lg"
-                  size={'icon'}
+                  size={"icon"}
                 >
                   <CameraUp className="text-white scale-150" />
                 </Button>
                 <Button
                   onClick={handleSearchImage}
-                  size={'icon'}
+                  size={"icon"}
                   className="bg-primary-500 shadow-lg"
                 >
                   <CameraSearch className="text-white scale-150" />
                 </Button>
                 <Button
                   onClick={handleDeleteImage}
-                  size={'icon'}
+                  size={"icon"}
                   className="bg-danger-500 shadow-lg"
                 >
                   <CameraDelete className="text-white scale-150" />
@@ -160,9 +169,9 @@ const ProfileImageSelector: FunctionComponent<
                 size="lg"
                 variant="default"
                 onClick={handleOnSave}
-                disabled={true}
+                disabled={Loading}
               >
-               <Loader2 className="animate-spin"/> Guardar
+                {Loading && <Loader2 className="animate-spin" />} Guardar
               </Button>
               <Button
                 className="shadow-lg text-xl w-full"

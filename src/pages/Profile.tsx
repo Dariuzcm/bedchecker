@@ -1,7 +1,7 @@
 import { useStore } from "../store/store";
 import { CameraIcon } from "../icons/CameraIcon";
 import SelfEditInput from "../components/SelfEditInput";
-import { updateUser } from "../api/userServiceHandler";
+import { getPhoto, updateUser } from "../api/userServiceHandler";
 import { useNavigate } from "react-router-dom";
 import { Card, CardContent } from "@/shadcdn/ui/card";
 import { Button } from "@/shadcdn/ui/button";
@@ -33,7 +33,7 @@ function Profile() {
                   className="size-28 border-1 border-solid border-x-zinc-500"
                   //
                 >
-                  <AvatarImage src={user.photo || "/avatarEmpty.svg"} />
+                  <AvatarImage src={getPhoto(user.photo) || "/avatarEmpty.svg"} />
                 </Avatar>
                 <Button
                   className="text-white relative -right-16 -top-8 rounded-full"

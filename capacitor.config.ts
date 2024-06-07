@@ -5,8 +5,12 @@ const config: CapacitorConfig = {
   appName: 'bedchecker',
   webDir: 'dist',
   bundledWebRuntime: true,
+  android: {
+    allowMixedContent: true
+  },
   server: {
-    androidScheme: 'http',
+    cleartext: true,
+    androidScheme: 'https',
     allowNavigation: [
       'http://localhost:3333',
       'https://d1d9tq69-3333.usw3.devtunnels.ms/'

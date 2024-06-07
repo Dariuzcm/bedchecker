@@ -1,7 +1,7 @@
 import { useStore } from "../store/store";
 import { SettingsIcon } from "../icons/SettingsIcon";
 import { Logout } from "../icons/Logout";
-import { logoutAction } from "../api/userServiceHandler";
+import { getPhoto, logoutAction } from "../api/userServiceHandler";
 import { Link, useNavigate } from "react-router-dom";
 import User from "./User";
 import { Avatar, AvatarFallback, AvatarImage } from "@/shadcdn/ui/avatar";
@@ -36,7 +36,7 @@ export function AvatarSettings() {
         <DropdownMenu>
           <DropdownMenuTrigger asChild>
             <Avatar>
-              <AvatarImage src={user.photo || "/avatarEmpty.svg"} />
+              <AvatarImage src={getPhoto(user.photo) || "/avatarEmpty.svg"} />
               <AvatarFallback>CN</AvatarFallback>
             </Avatar>
           </DropdownMenuTrigger>
@@ -48,7 +48,7 @@ export function AvatarSettings() {
                 }}
                 name={user.name}
                 description={user.email}
-                src={user.photo || "/avatarEmpty.svg"}
+                src={getPhoto(user.photo) || "/avatarEmpty.svg"}
               />
             </DropdownMenuItem>
             <DropdownMenuItem key="config">
