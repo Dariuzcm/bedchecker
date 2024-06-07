@@ -60,7 +60,7 @@ export async function cancelMovement(accessToken: Token, movement: Movement) {
     window.location.replace("/login");
     throw Error("No token Provided");
   }
-  const request = await requestHandler.delete(`movements/${movement.uuid}`, {
+  const request = await requestHandler.delete(`movements/${movement.id}`, {
     headers: {
       Authorization: `${capitalize(accessToken.type)} ${accessToken.token}`,
     },

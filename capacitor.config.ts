@@ -15,6 +15,10 @@ const config: CapacitorConfig = {
   plugins: {
     CapacitorHttp: {
       enabled: true
+    },
+    BarcodeScanner: {
+      camera: true,
+      flashlight: true
     }
   }
 };

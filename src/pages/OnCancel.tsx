@@ -21,6 +21,7 @@ const OnCancel: FunctionComponent<OnCancelProps> = () => {
   function handleOnFinish(): void {
     cancelMovement(user.token!, movement).then(() => {
       resetMovement()
+      navigation('/movements/create')
     })
   }
 

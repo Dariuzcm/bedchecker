@@ -15,6 +15,7 @@ import { Card, CardContent } from "@/shadcdn/ui/card";
 import { Button } from "@/shadcdn/ui/button";
 import { Slider } from "@/shadcdn/ui/slider";
 import { useToast } from "@/shadcdn/ui/use-toast";
+import { Loader2 } from "lucide-react";
 
 interface ProfileImageSelectorProps {}
 
@@ -110,7 +111,7 @@ const ProfileImageSelector: FunctionComponent<
   return (
     <>
       <section>
-        <Card className="h-[80vh] overflow-x-visible">
+        <Card className="h-auto min-h-[80vh] overflow-x-visible">
           <CardContent>
             <div className="flex flex-col justify-center content-center items-center w-full pt-6 gap-4 px-3">
               <AvatarEditor
@@ -159,8 +160,9 @@ const ProfileImageSelector: FunctionComponent<
                 size="lg"
                 variant="default"
                 onClick={handleOnSave}
+                disabled={true}
               >
-                Guardar
+               <Loader2 className="animate-spin"/> Guardar
               </Button>
               <Button
                 className="shadow-lg text-xl w-full"
