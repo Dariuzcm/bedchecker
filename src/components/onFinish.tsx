@@ -10,32 +10,32 @@ import { Status } from "@/types/movementTypes";
 interface OnFinishProps {}
 
 const OnFinish: FunctionComponent<OnFinishProps> = () => {
-  const {
-    movement,
-    bed,
-    service,
-    user,
-    setOnList,
-    resetMovement,
-  } = useStore((state) => ({
-    movement: state.movement,
-    bed: state.bed,
-    service: state.service,
-    user: state.user,
-    setOnList: state.setOnList,
-    resetMovement: state.resetMovement,
-  }));
+  const { movement, bed, service, user, setOnList, resetMovement } = useStore(
+    (state) => ({
+      movement: state.movement,
+      bed: state.bed,
+      service: state.service,
+      user: state.user,
+      setOnList: state.setOnList,
+      resetMovement: state.resetMovement,
+    })
+  );
 
   function handleOnFinish() {
-    updateMovement(user.token!, { ...movement, status: Status.FINISH} )
-    setOnList({
+    updateMovement(user.token!, {
       ...movement,
-      bed,
-      bedId: bed?.bedId,
-      service,
-      serviceId: service?.serviceId
-    })
-    resetMovement()
+      status: Status.FINISH,
+      end: new Date().toISOString(),
+    }).then(() => {
+      setOnList({
+        ...movement,
+        bed,
+        bedId: bed?.bedId,
+        service,
+        serviceId: service?.serviceId,
+      });
+      resetMovement();
+    });
   }
 
   return (
@@ -68,13 +68,19 @@ const OnFinish: FunctionComponent<OnFinishProps> = () => {
               <div className="flex gap-3">
                 <h1>Fecha de Inicio:</h1>
                 <div className="text-slate-400">
-                  <RelativeTimeComponent lang="es" datetime={movement.begin}></RelativeTimeComponent>
+                  <RelativeTimeComponent
+                    lang="es"
+                    datetime={movement.begin}
+                  ></RelativeTimeComponent>
                 </div>
               </div>
               <div className="flex gap-3">
                 <h1>Fecha final:</h1>
                 <div className="text-slate-400">
-                  <RelativeTimeComponent lang="es" datetime={movement.end!}></RelativeTimeComponent>
+                  <RelativeTimeComponent
+                    lang="es"
+                    datetime={movement.end!}
+                  ></RelativeTimeComponent>
                 </div>
               </div>
             </div>

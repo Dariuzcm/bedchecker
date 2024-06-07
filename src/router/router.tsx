@@ -13,6 +13,7 @@ import MovementList from "@/pages/MovementList";
 import { Toaster } from "@/shadcdn/ui/toaster";
 import MovementProcess from "@/pages/MovementProcess";
 import OnCancel from "@/pages/OnCancel";
+import MovementItem from "@/pages/MovementItem";
 
 export const ReactRouter = () => {
 
@@ -39,6 +40,7 @@ export const ReactRouter = () => {
             <Route path="/movements">
               <Route path="/movements" element={<MovementList />} />
               <Route path="/movements/create" element={<MovementProcess />} />
+              <Route path="/movements/:id" element={<MovementItem />} />
               <Route path="/movements/cancel" element={<OnCancel />} />
             </Route>
             <Route path="*" element={<NotFound />} />

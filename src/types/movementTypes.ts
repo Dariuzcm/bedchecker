@@ -1,4 +1,5 @@
 export type Movement = {
+  id?: number
   uuid?: string
   notes?: string
   bedId?: number
@@ -21,6 +22,18 @@ export type Service = {
   description?: string
   code?: string
 }
+
+export type PaginatorType = {
+  currentPage: number
+  firstPage: number
+  firstPageUrl: string
+  lastPage: number
+  lastPageUrl: string
+  nextPageUrl: string | null
+  perPage: number
+  previousPageUrl: string | null
+  total: number
+};
 
 export const enum Status {
   PREPARE = 'PREPARE',

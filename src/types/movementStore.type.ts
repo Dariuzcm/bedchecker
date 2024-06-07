@@ -1,12 +1,13 @@
-import { Bed, Movement, Service } from "./movementTypes"
+import { Bed, Movement, PaginatorType, Service } from "./movementTypes";
 
 export interface MovementDataStore {
   movements: Movement[]
   services: Service[]
   beds: Bed[]
   movement: Movement
-  service?: Service,
-  bed?: Bed,
+  service?: Service
+  bed?: Bed
+  paginatorMovement: PaginatorType
 }
 
 export interface MovementActionStore {
@@ -17,8 +18,7 @@ export interface MovementActionStore {
   setBed: (bed: Partial<Bed>) => void
   resetMovement: () => void
   setOnList: (movement: Movement) => void
+  setPaginatorMovement: (paginator: PaginatorType) => void
 }
-
-
 
 export type MovementStoreType = MovementDataStore & MovementActionStore

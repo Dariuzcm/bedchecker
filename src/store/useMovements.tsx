@@ -3,7 +3,13 @@ import {
   MovementDataStore,
   MovementStoreType,
 } from "../types/movementStore.type";
-import { Bed, Movement, Service, Status } from "@/types/movementTypes";
+import {
+  Bed,
+  Movement,
+  PaginatorType,
+  Service,
+  Status,
+} from "@/types/movementTypes";
 
 const initialState: MovementDataStore = {
   movements: [],
@@ -12,6 +18,17 @@ const initialState: MovementDataStore = {
   movement: {
     status: Status.PREPARE,
   },
+  paginatorMovement: {
+    currentPage: 0,
+    firstPage: 0,
+    firstPageUrl: "",
+    lastPage: 0,
+    lastPageUrl: "",
+    nextPageUrl: null,
+    perPage: 0,
+    previousPageUrl: null,
+    total: 0
+  }
 };
 export const movementStore: StateCreator<MovementStoreType> = (
   set,
@@ -53,4 +70,6 @@ export const movementStore: StateCreator<MovementStoreType> = (
         movements: current,
       };
     }),
+  setPaginatorMovement: (paginator: PaginatorType) =>
+    set({ paginatorMovement: paginator }),
 });
