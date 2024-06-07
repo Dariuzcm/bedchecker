@@ -1,3 +1,4 @@
+/* eslint-disable @typescript-eslint/no-unused-vars */
 import RelativeTimeElement from "@github/relative-time-element";
 import { FunctionComponent } from "react";
 
@@ -9,7 +10,9 @@ interface RelativeTimeComponentProps {
 const RelativeTimeComponent: FunctionComponent<RelativeTimeComponentProps> = (
   props
 ) => {
-  // eslint-disable-next-line @typescript-eslint/no-unused-vars
+
+  // eslint-disable-next-line @typescript-eslint/ban-ts-comment
+  //@ts-ignore
   const _relative = RelativeTimeElement;
 
   return (

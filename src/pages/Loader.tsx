@@ -1,4 +1,4 @@
-import { Card } from "@tremor/react";
+import { Card } from "@/shadcdn/ui/card";
 import { Loader2 } from "lucide-react";
 import { FunctionComponent } from "react";
 
