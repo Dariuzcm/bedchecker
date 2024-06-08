@@ -32,7 +32,7 @@ export async function createMovement(
   return request.data;
 }
 
-export async function updateMovement(accessToken: Token, movement: Movement) {
+export async function updateMovement(accessToken: Token, movement: Movement): Promise<Movement> {
   if (!accessToken) {
     window.location.replace("/login");
     throw Error("No token Provided");
@@ -52,10 +52,10 @@ export async function updateMovement(accessToken: Token, movement: Movement) {
       `Error al intentar crear Movimiento : ${JSON.stringify(request.data)}`
     );
   }
-  return request.data;
+  return request.data as Movement;
 }
 
-export async function cancelMovement(accessToken: Token, movement: Movement) {
+export async function cancelMovement(accessToken: Token, movement: Movement): Promise<void> {
   if (!accessToken) {
     window.location.replace("/login");
     throw Error("No token Provided");
@@ -73,7 +73,7 @@ export async function cancelMovement(accessToken: Token, movement: Movement) {
   }
 }
 
-export async function getLastestMovement(accessToken: Token) {
+export async function getLastestMovement(accessToken: Token): Promise<Movement> {
   if (!accessToken) {
     window.location.replace("/login");
     throw Error("No token Provided");
@@ -94,7 +94,7 @@ export async function getLastestMovement(accessToken: Token) {
   return request.data;
 }
 
-export async function getMovements(accessToken: Token, page = 1, size = 25) {
+export async function getMovements(accessToken: Token, page = 1, size = 25): Promise<Movement[]> {
   if (!accessToken) {
     window.location.replace("/login");
     throw Error("No token Provided");
@@ -120,7 +120,7 @@ export async function getMovements(accessToken: Token, page = 1, size = 25) {
   return request.data
 }
 
-export async function getWeekMovements(accessToken: Token) {
+export async function getWeekMovements(accessToken: Token): Promise<Movement[]> {
   if (!accessToken) {
     window.location.replace("/login");
     throw Error("No token Provided");

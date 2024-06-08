@@ -60,7 +60,7 @@ export const logoutAction = async (
 export const registration = async (
   user: Partial<User>,
   isLoading?: React.Dispatch<React.SetStateAction<boolean>>
-) => {
+): Promise<User> => {
   isLoading && isLoading(true);
   try {
     const { data, status } = await requestHandler.post("users/create", {
@@ -134,7 +134,7 @@ export const validateVerificationToken = async (
   }
 };
 
-export const refreshUser = async (user: User) => {
+export const refreshUser = async (user: User): Promise<User> => {
   if (!user.token) throw Error("No Token Exception");
   const accessToken = user.token;
 
@@ -157,7 +157,7 @@ export const refreshUser = async (user: User) => {
 export const getPhoto = (photoIdentifer: string) => {
   return photoUrl + photoIdentifer
 }
-export const updateUser = async (user: User) => {
+export const updateUser = async (user: User): Promise<User> => {
   if (!user.token) throw Error("No Token Exception");
   const accessToken = user.token;
   try {
